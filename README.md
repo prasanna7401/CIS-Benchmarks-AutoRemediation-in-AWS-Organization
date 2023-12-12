@@ -251,8 +251,8 @@ _Sample Email Notification mentioning steps to perform remediation_
 
 > Note for Customization:
 
- 1. For CIS 1.17 remediation, you can change the name of the IAM role created by modifying the <code>support_role_name</code> variable in [lambda_function.py](./main/lambda_function.py)
- 2. For CIS 1.8 & CIS 1.9 remediation, you can further customise the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
+> 1. For CIS 1.17 remediation, you can change the name of the IAM role created by modifying the <code>support_role_name</code> variable in [lambda_function.py](./main/lambda_function.py)
+> 2. For CIS 1.8 & CIS 1.9 remediation, you can further customise the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
 
 
 #### B) Storage Controls 
@@ -266,7 +266,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 
 > Note for Customization:
 
- 1. For CIS 2.2.1 remediation, the Remediation Lambda function’s execution **timeout needs to be 5 seconds**
+> 1. For CIS 2.2.1 remediation, the Remediation Lambda function’s execution **timeout needs to be 5 seconds**
 
 
 #### C) Logging Controls 
@@ -277,7 +277,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 |   3.2  |   <code>CloudTrail.4</code>  |   CloudTrail log file validation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.2</code>  |   Enabled <code>Log Validation</code> in compliancy failed trail  |
 |   3.3  |   <code>CloudTrail.6</code>  |   Ensure the S3 bucket used to store CloudTrail logs is not publicly accessible  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.3</code>  |   Enables <code>Block all public access</code> setting at CloudTrail Bucket  |
 |   3.4  |   <code>CloudTrail.5</code> |   CloudTrail trails should be integrated with Amazon CloudWatch Logs  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.4</code>  |   Creates CloudWatch log & IAM role (if not exists) with CloudWatch log writing permissions & integrates CloudTrail with CloudWatch Log group |
-|   3.5  |   <code>Config.1</code> |   AWS Config must be enabled in all regions to monitor all resources  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.5</code>  |   `Note: No remediation code has been provided for this Control ID. Because, while enabling AWS config at organization level, we have setup <code>Include Global Resources</code> as <code>FALSE</code> to avoid redundant checks for global resources like IAM. Since AWS Config checks is not allowed for all resources, this control check will be in FAILED state. You can choose to disable this control check if you wish.`  |
+|   3.5  |   <code>Config.1</code> |   AWS Config must be enabled in all regions to monitor all resources  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.5</code>  |   `No remediation code has been provided for this Control ID. Because, while enabling AWS config at organization level, we have setup <code>Include Global Resources</code> as <code>FALSE</code> to avoid redundant checks for global resources like IAM. Since AWS Config checks is not allowed for all resources, this control check will be in FAILED state. You can choose to disable this control check if you wish.`  |
 |   3.6  |   <code>CloudTrail.7</code> |   Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.6</code>  |   Enables <code>Server Access Logging</code> in CloudTrail S3 bucket’s properties  |
 |   3.7  |   <code>CloudTrail.2</code> |   CloudTrail Logs should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.7</code>  |   Enabled <code>Log file SSE-KMS encryption</code> using the KMS key created using CloudFormation template [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./Cloud_Formation_Template/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) earlier.  |
 |   3.8  |   <code>KMS.4</code> |   AWS KMS key rotation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.8</code>  |   Enables <code>Automatically rotate this KMS key every year</code> option  |
@@ -287,8 +287,8 @@ _Sample Email Notification mentioning steps to perform remediation_
 
 > Note for Customization: 
 
- 1. For CIS 3.4 remediation, you can change the name of the IAM role created by modifying the <code>iam_rolename</code>.
- 2. For CIS 3.7 remediation, If you already have a KMS key with necessary permissions, you can add <code>key_alias</code>.
- 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with description containing these keywords will not be rotated.
-All the above variable changes need to be done in [lambda_function.py](./main/lambda_function.py)
+> 1. For CIS 3.4 remediation, you can change the name of the IAM role created by modifying the <code>iam_rolename</code>.
+> 2. For CIS 3.7 remediation, If you already have a KMS key with necessary permissions, you can add <code>key_alias</code>.
+> 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with description containing these keywords will not be rotated.
+> > All the above variable changes need to be done in [lambda_function.py](./main/lambda_function.py)
 
