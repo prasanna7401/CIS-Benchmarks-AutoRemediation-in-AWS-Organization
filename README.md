@@ -95,7 +95,7 @@ To allow Security Hub to get its findings, we need to enable AWS Config in each 
 3. Set the <code>Deployment options</code> as per your requirement. But for our implementation, we need the deployment targets to be the entire organization.
 
     ![Deployment Targets](./screenshots/deployment_target.png)
-4. Set the <code>Auto-deployment</code> options as <code>Activated<code>, so that when a new member is added, AWS Config is enabled as per our requirements.
+4. Set the <code>Auto-deployment</code> options as <code>Activated</code>, so that when a new member is added, AWS Config is enabled as per our requirements.
 
    ![Deployment Targets](./screenshots/auto_deployment.png)
 5. Choose the deployment regions as per your requirement & Click _Next > Submit_ to deploy.
