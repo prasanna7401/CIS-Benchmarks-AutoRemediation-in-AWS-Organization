@@ -82,5 +82,10 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 ## 4. ENVIRONMENT SETUP
 
-
 `Pre-requisite: An AWS Organization setup with multiple member accounts, and a management account and Organization-level services like AWS Config, Security Hub, CloudFormation StackSet, CloudTrail, etc. and setup Delegated Administrator accounts as per your requirements.`
+
+### 4.1. Enable AWS Config
+
+To allow Security Hub to get its findings, we need to enable AWS Config in each region of all organization member accounts. For this, we use a CloudFormation template. The implementation steps are as follows,
+
+1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to *CloudFormation > StackSets > Create StackSet* & upload the <code> Enable_AWS_Config.yaml </code> template file.
