@@ -142,3 +142,13 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 }
 ```
 6. Attach this permission policy to the remediation lambda function’s IAM role, in addition to the default lambda permissions.
+
+### 4.5. Create an IAM Role in Member Accounts
+
+> To allow our lambda function to be able to perform remediation action in the organization member accounts, it needs to have sufficient permissions. For this, we need an IAM role in the member accounts, which will be assumed by our lambda function.
+
+1. Using the CloudFormation template [CIS_Remediator_Role_Deployment.yaml](./Cloud_Formation_Template/CIS_Remediator_Role_Deployment.yml), we will create an IAM role named <code>CIS_Remediator_Role</code> with AWS-managed permission AdministratorAccess with ARN <code>arn:aws:iam::aws:policy/AdministratorAccess</code>.
+> If you wish not to give Administrator Access to the assumed member account IAM role, you need to create an IAM policy with necessary permissions that allows the lambda function to perform the necessary remediation actions for all of the CIS Controls. In this case, you can use your own CloudFormation template to create an IAM policy in all the member accounts, and change the ARN of the policy in "CIS_Remediator_Role_Deployment.yml"
+2. Since IAM is a global resource, choose only one deployment region.
+3. Also, set Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
+4. During the deployment, CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
