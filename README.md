@@ -200,12 +200,12 @@ Below is the summary of the remediation action done for each CIS controls:
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID |
 |----------|----------|----------|----------|
-|   1.4  |   IAM.4  |   IAM root user access key should not exist  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.4</code>  |
-|   1.5  |   IAM.9  |   MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.5</code>  |
-|   1.6  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
-|   1.10  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
-|   1.16  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
-|   2.3.1  |   RDS.3  |   RDS DB instances should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.3.1</code>  |
+|   1.4  |   <code>IAM.4</code>  |   IAM root user access key should not exist  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.4</code>  |
+|   1.5  |   <code>IAM.9</code>  |   MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.5</code>  |
+|   1.6  |   <code>IAM.6</code>  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
+|   1.10  |   <code>IAM.5</code>  |   MFA should be enabled for all IAM users that have a console password  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.10</code>  |
+|   1.16  |   <code>IAM.16</code>  |   Ensure that Customer-managed IAM policies should not allow full "*:*" administrative privileges  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.16</code>  |
+|   2.3.1  |   <code>RDS.3</code> |   RDS DB instances should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.3.1</code>  |
 
 > The Generator ID mentioned above, is retrieved from the Security Hub Findings. This will be useful in setting up custom EventBridge rules depending on your requirements.
 
