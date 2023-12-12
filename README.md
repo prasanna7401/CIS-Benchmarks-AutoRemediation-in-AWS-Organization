@@ -101,3 +101,14 @@ To allow Security Hub to get its findings, we need to enable AWS Config in each 
 5. Choose the deployment regions as per your requirement & Click _Next > Submit_ to deploy.
 
 Now, AWS Config will be enabled in all the organization member accounts in the regions you have specified.
+
+### 4.2. Enable AWS Security Hub:
+
+1. To enable AWS Security Hub in the organization member accounts, in the Security Hub Delegated Administrator Account’s Security Hub console of your primary region, go to _Configuration > Enable Central Configuration_.
+2. Choose the Regions which you want to be aggregated, so that all region findings will be shown in the Security Hub dashboard of the primary region. Click _Next_.
+3. For the _Configuration type_, you can either choose to use the AWS Recommended setting to enable all standards or choose _Customize my Security Hub configuration_ and choose only <code>CIS AWS Foundations Benchmark v1.4.0</code>
+
+    ![Enable Security Hub using Central Configuration option from Delegated Administrator's Security Hub Console](./screenshots/enable_security_hub.png)
+4. Choose _Deploy to all accounts > Next > Submit_.
+
+Now, AWS Security Hub will be enabled in the regions that you have mentioned, with controls checks for CIS 1.4.0 enabled. For more information, refer to the [AWS Documentation - Security Hub Central Configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/central-configuration-intro.html)
