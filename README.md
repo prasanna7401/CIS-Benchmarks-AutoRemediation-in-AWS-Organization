@@ -153,4 +153,4 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 3. Also, set Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
 4. During the deployment, CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
 
-![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/member_role_deployment_parameter.png)
+    ![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/member_role_deployment_parameter.png)
