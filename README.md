@@ -331,6 +331,7 @@ Here, only the Event Pattern will change as given below:
 2. Choose the other <code>Event Type Specifications</code> as per your requirements,and modify the <code>Workflow status</code> as <code>NEW</code>
 3. Now, enter all the <code>GeneratorId</code> of the controls that you want to be automatically remediated.
 4. Click Next & choose the <code>Target</code> as the <code>Remediation Lambda function</code> and <code>Create Rule</code>.
+
    ![Event Pattern - Autotrigger](./screenshots/eventbridge_pattern_auto.png)
 
 > Note: 
