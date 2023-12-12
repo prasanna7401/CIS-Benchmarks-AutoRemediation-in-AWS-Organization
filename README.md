@@ -2,8 +2,21 @@
 
 This implementation uses AWS services like Security Hub, Lambda functions, and EventBridge rules, to perform near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup.
 
-[Click here](#UPDATE THIS) to go to the Environment Setup
-[Click here](#UPDATE THIS) to go to Remediation Action section
+## Table of Contents
+ - [Introduction](#1-introduction)
+ - [Proposed Architecture](#2-proposed-architecture)
+ - [Required AWS Services & Components](#3-required-aws-services--components)
+ - [Environment Setup](#4-environment-setup)
+ - [Remediation Actions](#5-remediation-actions)
+    - Unsupported CIS Controls (#update later)
+    - Supported CIS Controls(#update later)
+        - IAM Controls(#update later)
+        - Storage Controls(#update later)
+        - Logging Controls(#update later)
+        - Monitoring Controls(#update later)
+        - Networking Controls(#update later)
+ - [Test Results](#6-test-results)
+ - #### ADD SOMETHING HERE
 
 ## 1. INTRODUCTION
 ### 1.1. Introduction
@@ -59,7 +72,7 @@ In an AWS Organizations setup, there will be a [Delegated Administrator Account]
 
 ![Detailed Remediation Action Flow architecture](./screenshots/remediation-flow-detailed.png)
 
-The above architecture will be explained in detail in the [Remediation Actions](#UPDATE THIS) section
+The above architecture will be explained in detail in the [Remediation Actions](#5-remediation-actions) section
 
 ## 3. REQUIRED AWS SERVICES & COMPONENTS
 
