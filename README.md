@@ -43,7 +43,7 @@ Below are the four sections:
 
 In an AWS Organization setup with hundreds of accounts, enforcing organization-level security regulations for each resource deployed in various regions is a tedious task. An organization's security team will need to put a lot of effort into taking necessary actions to increase the Compliancy score.
 
-## 2. Proposed Architecture
+## 2. PROPOSED ARCHITECTURE
 
 ### 2.1. Security Hub setup in AWS Organizations
 
@@ -61,7 +61,7 @@ In an AWS Organizations setup, there will be a [Delegated Administrator Account]
 
 The above architecture will be explained in detail in the [Remediation Actions](#UPDATE THIS) section
 
-## 3. Required AWS Services & Components
+## 3. REQUIRED AWS SERVICES & COMPONENTS
 
 - [Config](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html) - the primary source that performs security configuration checks and sends them to AWS Security Hub.
 
