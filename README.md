@@ -215,9 +215,11 @@ For the above controls, EventBridge Rule is set to be triggered only upon clicki
 
 1. To Create a Custom Action, in the Security Hub Delegated Administrator, go to <code>Security Hub > Custom Action > Create Custom Action</code> _(say, CIS_Remediation)_
 2. Now, go to <code>EventBridge > Rules > Create Rule</code> & Choose your desired rule name _(say, CIS_Remediation_Master_CustomAction_Trigger)_ and give a description.
-3. Choose the <code>EventBridge source</code> as “AWS Events or EventBridge partner events”, and <code>Creation method</code> as <code>Use pattern form</code>.
+3. Choose the <code>EventBridge source</code> as “AWS Events or EventBridge partner events”, and <code>Creation method</code> as <code>Use pattern form</code>.\
+
     ![EventBridge Initial Setup](./screenshots/eventbridge_initial_setup.png)
 4. Choose the <code>Event pattern</code> as shown below, with Event type as <code>Security Hub Findings – Custom Action</code> & specify the Custom Action ARN you had created.
+
     ![EventBridge Pattern](./screenshots/eventbridge_pattern.png)
 5. Click Next & set the Target as Lambda function & choose the name of the Remediation Lambda function.
 6. Click Next & Click on <code>Create Rule</code>.
@@ -226,8 +228,9 @@ For the above controls, EventBridge Rule is set to be triggered only upon clicki
 #### How to Trigger this?
 Choose a FAILED compliancy control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
 
-_Sample Email Notification mentioning steps to perform remediation_
+<center>`Sample Email Notification mentioning steps to perform remediation`</center>
 ![Sample Email Notification mentioning steps to perform remediation](./screenshots/manual_control_email.png)
+<center>Sample Email Notification mentioning steps to perform remediation</center>
 
 > Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
 
