@@ -250,7 +250,6 @@ _Sample Email Notification mentioning steps to perform remediation_
 
 
 > Note for Customization:
-
 > 1. For CIS 1.17 remediation, you can change the name of the IAM role created by modifying the <code>support_role_name</code> variable in [lambda_function.py](./main/lambda_function.py)
 > 2. For CIS 1.8 & CIS 1.9 remediation, you can further customise the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
 
@@ -265,7 +264,6 @@ _Sample Email Notification mentioning steps to perform remediation_
 |   2.2.1  |   <code>EC2.7</code> |   EBS default encryption should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.2.1</code>  |   Enables <code>"Always encrypt new EBS volumes"</code> in EC2 Console settings  |
 
 > Note for Customization:
-
 > 1. For CIS 2.2.1 remediation, the Remediation Lambda function’s execution **timeout needs to be 5 seconds**
 
 
@@ -286,7 +284,6 @@ _Sample Email Notification mentioning steps to perform remediation_
 |   3.11  |   <code>CloudTrail.1</code> |   Ensure that object-level logging for Read events is enabled for S3 buckets  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.11</code>  |   Remediated under CIS 3.1  |
 
 > Note for Customization: 
-
 > 1. For CIS 3.4 remediation, you can change the name of the IAM role created by modifying the <code>iam_rolename</code>.
 > 2. For CIS 3.7 remediation, If you already have a KMS key with necessary permissions, you can add <code>key_alias</code>.
 > 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with description containing these keywords will not be rotated.
