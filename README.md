@@ -154,3 +154,21 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 4. During the deployment, CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
 
     ![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/member_role_deployment_parameter.png)
+
+### 4.6. Optional Requirements
+
+For the <code>CIS Control ID – 3.7</code>: CloudTrail Logs should have encryption at-rest enabled, we need a KMS key with sufficient permissions. To be able to automatic remediate this control, use CloudFormation StackSets to deploy [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./Cloud_Formation_Template/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) across all member accounts in the desired regions.
+
+> Additional Resources: If you would like to Disable or Force Enable any of the Security Hub Controls in your organization member accounts, you can implement solutions suggested in the below [AWS blog - Disabling Security Hub Controls in a Multi-Account Environment](https://aws.amazon.com/blogs/security/disabling-security-hub-controls-in-a-multi-account-environment/)
+
+Now, all the requirements to implement our solution have been setup.
+
+## 5. REMEDIATION ACTIONS
+
+Out of 58 different remediation controls suggested by CIS, a few are not supported by AWS. Refer to the [AWS documentation - Center for Internet Security (CIS) AWS Foundations Benchmark v1.2.0 and v1.4.0](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html)
+Also, information required to allow you to customize remediation actions by modifying the variable values in [lambda_function.py](./main/lambda_function.py) has been provided wherever required, for each of the CISv1.4.0 control
+
+> CIS Controls that are not supported for automated checks done by Security Hub: CIS 1.1, 1.2, 1.3, 1.11, 1.13, 1.18, 1.19, 1.20, 1.21, 2.1.1, 2.1.3, 2.1.4, 4.15, 5.4
+
+> CIS Controls that were in CIS v1.2.0, but not supported in CIS v1.4.0, and Controls for which automated control check is disabled by AWS Security Hub for CIS v1.4.0: 1.15, 4.1, 4.2, 5.2 
+Note: Here, Control ID 5.2 is covered under 5.1 – Network ACL should not allow ingress from 0.0.0.0/0 to remote administration ports.
