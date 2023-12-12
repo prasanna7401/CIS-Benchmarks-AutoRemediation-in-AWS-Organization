@@ -90,8 +90,10 @@ To allow Security Hub to get its findings, we need to enable AWS Config in each 
 
 1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to *CloudFormation > StackSets > Create StackSet* & upload the [Enable_AWS_Config.yaml](./Cloud_Formation_Template/Enable_AWS_Config.yml) template file.
 2. Choose the Parameters values as per your requirements. But let the _Include global resource types_ as FALSE, because we don’t want AWS Config to perform redundant checks for Global resources like IAM in each region unnecessarily.
+
     ![Include global resource type setting](./screenshots/include_global_resource.png)
-3. Set the Deployment options as per your requirement. But for our implementation, we need the deployment targets to be the entire organization.
+4. Set the Deployment options as per your requirement. But for our implementation, we need the deployment targets to be the entire organization.
+
     ![Deployment Targets](./screenshots/deployment_target.png)
-4. Set the Auto-deployment options as _Activated_, so that when a new member is added, AWS Config is enabled as per our requirements.
-5. Choose the deployment regions as per your requirement & Click _Next > Submit_ to deploy.
+6. Set the Auto-deployment options as _Activated_, so that when a new member is added, AWS Config is enabled as per our requirements.
+7. Choose the deployment regions as per your requirement & Click _Next > Submit_ to deploy.
