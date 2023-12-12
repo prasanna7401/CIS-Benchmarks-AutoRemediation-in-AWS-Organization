@@ -86,7 +86,7 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 ### 4.1. Enable AWS Config
 
-To allow Security Hub to get its findings, we need to enable AWS Config in each region of all organization member accounts. For this, we use a CloudFormation template. The implementation steps are as follows,
+> To allow Security Hub to get its findings, we need to enable AWS Config in each region of all organization member accounts.
 
 1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yaml](./Cloud_Formation_Template/Enable_AWS_Config.yml) template file.
 2. Choose the Parameters values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because we don’t want AWS Config to perform redundant checks for Global resources like IAM in each region unnecessarily.
@@ -115,7 +115,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 
 ### 4.3. Create SNS Topic
 
-To be able to get email notification about the remediation steps taken for an automatically remediated CIS control check or get the steps to perform remediation for a control check that is triggered manually, we need to create an SNS topic in the organization member accounts in whichever region we are performing the remediation. 
+> To be able to get email notification about the remediation steps taken for an automatically remediated CIS control check or get the steps to perform remediation for a control check that is triggered manually, we need to create an SNS topic in the organization member accounts in whichever region we are performing the remediation. 
 
 1. To do this, use the [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml) file and deploy using CloudFormation StackSets in all organization members in all regions that you want. Also, let the auto-deployment option be in Activated state.
 2. Now, you can have necessary email accounts to subscribe to this SNS topic to receive notification.
