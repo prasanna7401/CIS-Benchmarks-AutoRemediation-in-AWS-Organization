@@ -79,3 +79,9 @@ The above architecture will be explained in detail in the [Remediation Actions](
 - [Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) - a fully managed distributed publish-subscribe system allowing mass delivery of emails, messages, and notifications.
 
 - [CloudFormation StackSet](https://docs.aws.amazon.com/cloudformation/) - an Infrastructure-as-a-Code solution that helps in quick deployment of resources across multiple accounts and regions under a single operational management framework.
+
+## 4. ENVIRONMENT SETUP
+
+<pre>
+Pre-requisite: An AWS Organization setup with multiple member accounts, and a management account and Organization-level services like AWS Config, Security Hub, CloudFormation StackSet, CloudTrail, etc. and setup Delegated Administrator accounts as per your requirements.
+</pre>
