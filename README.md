@@ -47,17 +47,17 @@ In an AWS Organization setup with hundreds of accounts, enforcing organization-l
 
 ### 2.1. Security Hub setup in AWS Organizations
 
-![Security Hub setup in AWS Organization setup with Delegated Administrator](./screenshots/security-hub-in-organization.jpg)
+![Security Hub setup in AWS Organization setup with Delegated Administrator](./screenshots/security-hub-in-organization.png)
 
 In an AWS Organizations setup, there will be a [Delegated Administrator Account](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_delegate_policies.html) for Security Hub. This account will act as a Centralized Security Dashboard for the entire organization.
 
 ### 2.2. Remediation Action Flow based on a Security Hub Finding - Simplified
 
-![Simplified Remediation Action Flow architecture](./screenshots/remediation-flow-simple.jpg)
+![Simplified Remediation Action Flow architecture](./screenshots/remediation-flow-simple.png)
 
 ### 2.3. Remediation Action Flow based on a Security Hub Finding - Detailed
 
-![Detailed Remediation Action Flow architecture](./screenshots/remediation-flow-detailed.jpg)
+![Detailed Remediation Action Flow architecture](./screenshots/remediation-flow-detailed.png)
 
 The above architecture will be explained in detail in the [Remediation Actions](#UPDATE THIS) section
 
