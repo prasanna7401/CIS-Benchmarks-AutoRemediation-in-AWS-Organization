@@ -220,7 +220,7 @@ For the above controls, EventBridge Rule is set to be triggered only upon clicki
     ![EventBridge Initial Setup](./screenshots/eventbridge_initial_setup.png)
 4. Choose the <code>Event pattern</code> as shown below, with Event type as <code>Security Hub Findings – Custom Action</code> & specify the Custom Action ARN you had created.
 
-    ![EventBridge Pattern](./screenshots/eventbridge_pattern.png)
+    ![EventBridge Pattern](./screenshots/eventbridge_pattern_custom_action.png)
 5. Click Next & set the Target as Lambda function & choose the name of the Remediation Lambda function.
 6. Click Next & Click on <code>Create Rule</code>.
 
