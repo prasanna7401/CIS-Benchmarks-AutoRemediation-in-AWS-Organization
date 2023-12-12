@@ -88,7 +88,7 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 > To allow Security Hub to get its findings, we need to enable AWS Config in each region of all organization member accounts.
 
-1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yaml](./Cloud_Formation_Template/Enable_AWS_Config.yml) template file.
+1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yml](./Cloud_Formation_Template/Enable_AWS_Config.yml) template file.
 2. Choose the Parameters values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because we don’t want AWS Config to perform redundant checks for Global resources like IAM in each region unnecessarily.
 
     ![Include global resource type setting](./screenshots/include_global_resource.png)
@@ -147,7 +147,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 
 > To allow our lambda function to be able to perform remediation action in the organization member accounts, it needs to have sufficient permissions. For this, we need an IAM role in the member accounts, which will be assumed by our lambda function.
 
-1. Using the CloudFormation template [CIS_Remediator_Role_Deployment.yaml](./Cloud_Formation_Template/CIS_Remediator_Role_Deployment.yml), we will create an IAM role named <code>CIS_Remediator_Role</code> with AWS-managed permission AdministratorAccess with ARN <code>arn:aws:iam::aws:policy/AdministratorAccess</code>.
+1. Using the CloudFormation template [CIS_Remediator_Role_Deployment.yml](./Cloud_Formation_Template/CIS_Remediator_Role_Deployment.yml), we will create an IAM role named <code>CIS_Remediator_Role</code> with AWS-managed permission AdministratorAccess with ARN <code>arn:aws:iam::aws:policy/AdministratorAccess</code>.
 > If you wish not to give Administrator Access to the assumed member account IAM role, you need to create an IAM policy with necessary permissions that allows the lambda function to perform the necessary remediation actions for all of the CIS Controls. In this case, you can use your own CloudFormation template to create an IAM policy in all the member accounts, and change the ARN of the policy in "CIS_Remediator_Role_Deployment.yml"
 2. Since IAM is a global resource, choose only one deployment region.
 3. Also, set Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
