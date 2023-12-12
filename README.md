@@ -190,15 +190,45 @@ Also, information required to allow you to customize remediation actions by modi
 
 ## 5.2.	Supported Controls
 
-Among the controls supported by AWS for automated checks done by Security Hub, some need manual intervention for remediation (like setting up MFA, Root account setting modifications), while others can be auto remediated. Below is the summary of the remediation action done for each CIS controls:
+Among the controls supported by AWS for automated checks done by Security Hub, some need manual intervention for remediation (like setting up MFA, Root account setting modifications), while others can be auto-remediated. 
+
+> As many of the Security Standards recommended supported by Security Hub overlap, AWS has its own set of control ID for each matching standard recommended control ID.
+
+Below is the summary of the remediation action done for each CIS controls:
 
 ### 5.2.1. Controls that require "Manual" remediation:
 
-| **Prasanna** | **Venkatesan** | **Aravindan** |
-| 22 | 23 | 24 |
+| CIS Control ID | AWS Control ID | Control Description | Generator ID |
+|----------|----------|----------|----------|
+|   1.4  |   IAM.4  |   IAM root user access key should not exist  |   cis-aws-foundations-benchmark/v/1.4.0/1.4  |
+|   1.5  |   IAM.9  |   MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.5  |
+|   1.6  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.6  |
+|   1.10  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.6  |
+|   1.16  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.6  |
+|   2.3.1  |   RDS.3  |   RDS DB instances should have encryption at-rest enabled  |   cis-aws-foundations-benchmark/v/1.4.0/2.3.1  |
 
-| Prasanna | Venkatesan | Aravindan |
-|----------|----------|----------|
-|   22  |   23  |   asdddddddddddddddddddddddddddddddddddddddddddddd  |
-|   Row 2  |   Row 2  |   Row 2  |
-|   Row 3  |   Row 3  |   Row 3  |
+> The Generator ID mentioned above, is retrieved from the Security Hub Findings. This will be useful in setting up custom EventBridge rules depending on your requirements.
+
+#### Setup Custom Action based EventBridge Rule for "Manual" remediation controls
+
+For the above controls, EventBridge Rule is set to be triggered only upon clicking <code>Custom Action</code> feature in Security Hub.
+
+1. To Create a Custom Action, in the Security Hub Delegated Administrator, go to <code>Security Hub > Custom Action > Create Custom Action<code> _(say, CIS_Remediation)_
+2. Now, go to <code>EventBridge > Rules > Create Rule</code> & Choose your desired rule name _(say, CIS_Remediation_Master_CustomAction_Trigger)_ and give a description.
+3. Choose the <code>EventBridge source</code> as “AWS Events or EventBridge partner events”, and <code>Creation method</code> as <code>Use pattern form</code>.
+    ![EventBridge Initial Setup](./screenshots/eventbridge_initial_setup.png)
+4. Choose the <code>Event pattern</code> as shown below, with Event type as <code>Security Hub Findings – Custom Action</code> & specify the Custom Action ARN you had created.
+    ![EventBridge Pattern](./screenshots/eventbridge_pattern.png)
+5. Click Next & set the Target as Lambda function & choose the name of the Remediation Lambda function.
+6. Click Next & Click on <code>Create Rule</code>.
+
+
+#### How to Trigger this?
+Choose a FAILED compliancy control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
+
+_Sample Email Notification mentioning steps to perform remediation_
+![Sample Email Notification mentioning steps to perform remediation](./screenshots/manual_control_email.png)
+
+> Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
+
+
