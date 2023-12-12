@@ -128,19 +128,19 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 4. To allow this Remediation Lambda function to be able to assume role <code>CIS_Remediator_Role</code> in the member accounts (we will create after we set this function). We need to give it _sts:AssumeRole_ permission policy. 
 5. To do this, Create an IAM Policy with your preferred name _(say, CIS_Remediator_MemberRoleAssumption)_ with the below mentioned permission, so that the lambda function can assume the _CIS_Remediator_Role_ role in the member accounts to perform remediation.
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "CrossAccountRemediatorRoleAssumption",
-            "Effect": "Allow",
-            "Action": "sts:AssumeRole",
-            "Resource": "arn:aws:iam::*:role/CIS_Remediator_Role"
-        }
-    ]
-}
-```
+    ```
+    {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Sid": "CrossAccountRemediatorRoleAssumption",
+                    "Effect": "Allow",
+                    "Action": "sts:AssumeRole",
+                    "Resource": "arn:aws:iam::*:role/CIS_Remediator_Role"
+                }
+            ]
+    }
+    ```
 6. Attach this permission policy to the remediation lambda function’s IAM role, in addition to the default lambda permissions.
 
 ### 4.5. Create an IAM Role in Member Accounts
