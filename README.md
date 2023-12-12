@@ -310,4 +310,15 @@ _Sample Email Notification mentioning steps to perform remediation_
 > For the all the above Monitoring control remediations, you can modify the following input variables under each control’s <code>if condition</code> in the [lambda_function.py](./main/lambda_function.py)
 >> 1. <code>log_group_name</code> – Name of the log group that needs to be monitored.
 >> 2. <code>alarm_sns_topic</code> – SNS topic ARN that needs to be notified when Alarm threshold limit is reached.
->> 3. <code>threshold_value</code> – Choose your desired threshold limit `(default = 1)`
+>> 3. <code>threshold_value</code> – Choose your desired threshold limit `(default = 1)`.
+
+#### D) Networking Controls 
+
+| CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
+|----------|----------|----------|----------|----------|
+|   5.1  |   <code>EC2.21</code>  |   Network ACLs should not allow ingress from 0.0.0.0/0 to remote administration ports  |   <code>security-control/EC2.21</code>  |   Removes the rule that allows connections from <code>ANY/ALL sources to port 22 & 3389 & ALL</code>  |
+|   5.3  |   <code>EC2.2</code>  |   VPC default security groups should not allow inbound or outbound traffic  |   <code>cis-aws-foundations-benchmark/v/1.4.0/5.3</code>  |   Removes all inbound & outbound rules from the Default security group of a VPC  |
+
+> Note: 
+>> 1. For CIS 5.1 remediation, I am working on modifying the code, so that the auto-remediation is done not by removing the non-compliant resource, but by replacing the source IP as a private IP range. This will ensure that, only users connected to the Organization network directly or via VPN can access services via remote administration ports.
+
