@@ -289,3 +289,9 @@ _Sample Email Notification mentioning steps to perform remediation_
 > 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with description containing these keywords will not be rotated.
 > > All the above variable changes need to be done in [lambda_function.py](./main/lambda_function.py)
 
+#### D) Monitoring Controls 
+
+| CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
+|----------|----------|----------|----------|----------|
+|   4.3  |   <code>CloudWatch.1</code>  |   Ensure a log metric filter and alarm exist for Usage of 'Root' account  |   <code>cis-aws-foundations-benchmark/v/1.4.0/4.3</code>  |   Creates a Log metric & Alarm to monitor "Root" usage  |
+|   4.4  |   <code>CloudWatch.4</code>  |   Ensure a log metric filter and alarm exist for IAM Policy changes  |   <code>cis-aws-foundations-benchmark/v/1.4.0/4.4</code>  |   Creates a Log metric & Alarm to monitor IAM Policy changes using the filter ``` { $.userIdentity.type = "Root" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != "AwsServiceEvent" } ```  |
