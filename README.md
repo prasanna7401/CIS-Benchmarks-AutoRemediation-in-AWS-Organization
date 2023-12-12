@@ -88,4 +88,4 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 To allow Security Hub to get its findings, we need to enable AWS Config in each region of all organization member accounts. For this, we use a CloudFormation template. The implementation steps are as follows,
 
-1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to *CloudFormation > StackSets > Create StackSet* & upload the <code> Enable_AWS_Config.yaml </code> template file.
+1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to *CloudFormation > StackSets > Create StackSet* & upload the [Enable_AWS_Config.yaml](./Cloud_Formation_Template/Enable_AWS_Config.yaml) template file.
