@@ -235,3 +235,61 @@ _Sample Email Notification mentioning steps to perform remediation_
 > Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
 
 
+### 5.2.2. Controls that support "Automatic" remediation
+
+#### A) IAM Controls 
+
+| CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
+|----------|----------|----------|----------|----------|
+|   1.7  |   <code>CloudWatch.1</code>  |   Eliminate the use of 'root' user for administrative and daily tasks  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.7</code>  |   Remediated under CIS Control 4.3: Ensure Log metric filter and alarm should exist for usage of the "Root" user  |
+|   1.8  |   <code>IAM.15</code>  |   Ensure IAM password policy requires minimum password length of 14 or greater  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.8</code>  |   Changes password policy  |
+|   1.9  |   <code>IAM.16</code>  |   Ensure IAM password policy prevents password reuse  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.9</code>  |   Changes password policy  |
+|   1.12  |   <code>IAM.22</code> |   IAM user credentials unused for 45 days should be removed  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.12</code>  |   Keys unused for more than 45 days will be deleted  |
+|   1.14  |   <code>IAM.3</code>  |   IAM users' access keys should be rotated every 90 days or less  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.14</code>  |   Keys older than 90 days will be disabled  |
+|   1.17  |   <code>IAM.18</code>  |   Ensure a support role has been created to manage incidents with AWS Support  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.17</code>  |   Creates an IAM Role with <code>support:*</code> access   |
+
+```
+Note:
+
+1. For CIS 1.17 remediation, you can change the name of the IAM role created by modifying the <code>support_role_name</code> variable in [lambda_function.py](./main/lambda_function.py)
+2. For CIS 1.8 & CIS 1.9 remediation, you can further customise the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
+```
+
+#### B) Storage Controls 
+
+| CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
+|----------|----------|----------|----------|----------|
+|   2.1.2  |   <code>S3.5</code>  |   S3 buckets should require requests to use Secure Socket Layer, set to deny HTTP requests  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.1.2</code>  |   Adds a new statement in the S3 bucket policy to deny HTTP requests  |
+|   2.1.5.1  |   <code>S3.1</code>  |   S3 Block Public Access setting should be enabled at account level  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.1.5.1</code>  |   Enables <code>"Block all public access"</code> setting at account-level for S3  |
+|   2.1.5.2  |   <code>S3.8</code>  |   S3 Block Public Access Block setting should be enabled at the bucket-level  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.1.5.2</code>  |   Enables <code>"Block all public access"</code> setting at bucket-level for S3  |
+|   2.2.1  |   <code>EC2.7</code> |   EBS default encryption should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.2.1</code>  |   Enables <code>"Always encrypt new EBS volumes"</code> in EC2 Console settings  |
+
+```
+Note:
+
+1. For CIS 2.2.1 remediation, the Remediation Lambda function’s execution **timeout needs to be 5 seconds**
+```
+
+#### C) Logging Controls 
+
+| CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
+|----------|----------|----------|----------|----------|
+|   3.1  |   <code>CloudTrail.1</code>  |   Ensure that CloudTrail is enabled in all regions & set to log read/write events in CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.1</code>  |   Enabled CloudTrail in compliancy failed region with CloudTrail S3 bucket logging set to monitor read/write events  |
+|   3.2  |   <code>CloudTrail.4</code>  |   CloudTrail log file validation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.2</code>  |   Enabled <code>Log Validation</code> in compliancy failed trail  |
+|   3.3  |   <code>CloudTrail.6</code>  |   Ensure the S3 bucket used to store CloudTrail logs is not publicly accessible  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.3</code>  |   Enables <code>Block all public access</code> setting at CloudTrail Bucket  |
+|   3.4  |   <code>CloudTrail.5</code> |   CloudTrail trails should be integrated with Amazon CloudWatch Logs  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.4</code>  |   Creates CloudWatch log & IAM role (if not exists) with CloudWatch log writing permissions & integrates CloudTrail with CloudWatch Log group |
+|   3.5  |   <code>Config.1</code> |   AWS Config must be enabled in all regions to monitor all resources  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.5</code>  |   `Note: No remediation code has been provided for this Control ID. Because, while enabling AWS config at organization level, we have setup <code>Include Global Resources</code> as <code>FALSE</code> to avoid redundant checks for global resources like IAM. Since AWS Config checks is not allowed for all resources, this control check will be in FAILED state. You can choose to disable this control check if you wish.`  |
+|   3.6  |   <code>CloudTrail.7</code> |   Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.6</code>  |   Enables <code>Server Access Logging</code> in CloudTrail S3 bucket’s properties  |
+|   3.7  |   <code>CloudTrail.2</code> |   CloudTrail Logs should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.7</code>  |   Enabled <code>Log file SSE-KMS encryption</code> using the KMS key created using CloudFormation template [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./Cloud_Formation_Template/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) earlier.  |
+|   3.8  |   <code>KMS.4</code> |   AWS KMS key rotation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.8</code>  |   Enables <code>Automatically rotate this KMS key every year</code> option  |
+|   3.9  |   <code>EC2.6</code> |   Ensure VPC Flow (reject) logging is enabled in all VPCs  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.9</code>  |   Enables VPC flow logging by creating a new CloudWatch Log group, and an IAM role with log group write permissions, to log <code>REJECT</code> logs for each VPC.  |
+|   3.10  |   <code>CloudTrail.1</code> |   Ensure that object-level logging for Write events is enabled for S3 buckets  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.10</code>  |   Remediated under CIS 3.1  |
+|   3.11  |   <code>CloudTrail.1</code> |   Ensure that object-level logging for Read events is enabled for S3 buckets  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.11</code>  |   Remediated under CIS 3.1  |
+
+```
+Note:
+
+1. For CIS 3.4 remediation, you can change the name of the IAM role created by modifying the <code>iam_rolename</code> in [lambda_function.py](./main/lambda_function.py)
+2. For CIS 3.7 remediation, If you already have a KMS key with necessary permissions, you can add <code>key_alias</code> under the “if” condition of the [lambda_function.py](./main/lambda_function.py)” code.
+3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable under the "if" condition of [lambda_function.py](./main/lambda_function.py), so that KMS keys with description containing these keywords will not be rotated.
+```
