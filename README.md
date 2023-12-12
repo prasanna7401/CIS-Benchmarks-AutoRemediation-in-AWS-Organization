@@ -196,16 +196,16 @@ Among the controls supported by AWS for automated checks done by Security Hub, s
 
 Below is the summary of the remediation action done for each CIS controls:
 
-### 5.2.1. Controls that require "Manual" remediation:
+### 5.2.1. Controls that require "Manual" remediation
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID |
 |----------|----------|----------|----------|
-|   1.4  |   IAM.4  |   IAM root user access key should not exist  |   cis-aws-foundations-benchmark/v/1.4.0/1.4  |
-|   1.5  |   IAM.9  |   MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.5  |
-|   1.6  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.6  |
-|   1.10  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.6  |
-|   1.16  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   cis-aws-foundations-benchmark/v/1.4.0/1.6  |
-|   2.3.1  |   RDS.3  |   RDS DB instances should have encryption at-rest enabled  |   cis-aws-foundations-benchmark/v/1.4.0/2.3.1  |
+|   1.4  |   IAM.4  |   IAM root user access key should not exist  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.4</code>  |
+|   1.5  |   IAM.9  |   MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.5</code>  |
+|   1.6  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
+|   1.10  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
+|   1.16  |   IAM.6  |   Hardware MFA should be enabled for the root user  |   <code>cis-aws-foundations-benchmark/v/1.4.0/1.6</code>  |
+|   2.3.1  |   RDS.3  |   RDS DB instances should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/2.3.1</code>  |
 
 > The Generator ID mentioned above, is retrieved from the Security Hub Findings. This will be useful in setting up custom EventBridge rules depending on your requirements.
 
@@ -228,8 +228,9 @@ For the above controls, EventBridge Rule is set to be triggered only upon clicki
 #### How to Trigger this?
 Choose a FAILED compliancy control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
 
+_Sample Email Notification mentioning steps to perform remediation_
 ![Sample Email Notification mentioning steps to perform remediation](./screenshots/manual_control_email.png)
-<center>Sample Email Notification mentioning steps to perform remediation</center>
+
 
 > Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
 
