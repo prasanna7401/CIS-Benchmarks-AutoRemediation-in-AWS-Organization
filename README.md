@@ -306,7 +306,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 |   4.13  |   <code>CloudWatch.13</code>  |   Ensure a log metric filter and alarm exist for Route Table changes  |   <code>cis-aws-foundations-benchmark/v/1.4.0/4.13</code>  |   Creates a Log metric & Alarm to monitor Route Table changes using the filter <code> { ($.eventName = CreateRoute) &#124;&#124; ($.eventName = CreateRouteTable) &#124;&#124; ($.eventName = ReplaceRoute) &#124;&#124; ($.eventName = ReplaceRouteTableAssociation) &#124;&#124; ($.eventName = DeleteRouteTable) &#124;&#124; ($.eventName = DeleteRoute) &#124;&#124; ($.eventName = DisassociateRouteTable) } </code>   |
 |   4.14  |   <code>CloudWatch.14</code>  |   Ensure a log metric filter and alarm exist for VPC changes  |   <code>cis-aws-foundations-benchmark/v/1.4.0/4.14</code>  |   Creates a Log metric & Alarm to monitor VPC changes using the filter <code> { ($.eventName = CreateVpc) &#124;&#124; ($.eventName = DeleteVpc) &#124;&#124; ($.eventName = ModifyVpcAttribute) &#124;&#124; ($.eventName = AcceptVpcPeeringConnection) &#124;&#124; ($.eventName = CreateVpcPeeringConnection) &#124;&#124; ($.eventName = DeleteVpcPeeringConnection) &#124;&#124; ($.eventName = RejectVpcPeeringConnection) &#124;&#124; ($.eventName = AttachClassicLinkVpc) &#124;&#124; ($.eventName = DetachClassicLinkVpc) &#124;&#124; ($.eventName = DisableVpcClassicLink) &#124;&#124; ($.eventName = EnableVpcClassicLink) } </code>   |
 
-> Note: 
+> Note for Customization: 
 > For the all the above Monitoring control remediations, you can modify the following input variables under each control’s <code>if condition</code> in the [lambda_function.py](./main/lambda_function.py)
 >> 1. <code>log_group_name</code> – Name of the log group that needs to be monitored.
 >> 2. <code>alarm_sns_topic</code> – SNS topic ARN that needs to be notified when Alarm threshold limit is reached.
@@ -320,5 +320,5 @@ _Sample Email Notification mentioning steps to perform remediation_
 |   5.3  |   <code>EC2.2</code>  |   VPC default security groups should not allow inbound or outbound traffic  |   <code>cis-aws-foundations-benchmark/v/1.4.0/5.3</code>  |   Removes all inbound & outbound rules from the Default security group of a VPC  |
 
 > Note: 
->> 1. For CIS 5.1 remediation, I am working on modifying the code, so that the auto-remediation is done not by removing the non-compliant resource, but by replacing the source IP as a private IP range. This will ensure that, only users connected to the Organization network directly or via VPN can access services via remote administration ports.
+> 1. For CIS 5.1 remediation, I am working on modifying the code, so that the auto-remediation is done not by removing the non-compliant resource, but by replacing the source IP as a private IP range. This will ensure that, only users connected to the Organization network directly or via VPN can access services via remote administration ports.
 
