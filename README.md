@@ -165,10 +165,12 @@ Now, all the requirements to implement our solution have been setup.
 
 ## 5. REMEDIATION ACTIONS
 
-Out of 58 different remediation controls suggested by CIS, a few are not supported by AWS. Refer to the [AWS documentation - Center for Internet Security (CIS) AWS Foundations Benchmark v1.2.0 and v1.4.0](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html)
+Out of 58 different remediation controls suggested by CIS, a few are not supported by AWS. For more information, refer to the [AWS documentation - Center for Internet Security (CIS) AWS Foundations Benchmark v1.2.0 and v1.4.0](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html)
+
 Also, information required to allow you to customize remediation actions by modifying the variable values in [lambda_function.py](./main/lambda_function.py) has been provided wherever required, for each of the CISv1.4.0 control
 
-> CIS Controls that are not supported for automated checks done by Security Hub: CIS 1.1, 1.2, 1.3, 1.11, 1.13, 1.18, 1.19, 1.20, 1.21, 2.1.1, 2.1.3, 2.1.4, 4.15, 5.4
+### 5.1. Unsupported Controls
 
-> CIS Controls that were in CIS v1.2.0, but not supported in CIS v1.4.0, and Controls for which automated control check is disabled by AWS Security Hub for CIS v1.4.0: 1.15, 4.1, 4.2, 5.2 
-Note: Here, Control ID 5.2 is covered under 5.1 – Network ACL should not allow ingress from 0.0.0.0/0 to remote administration ports.
+- CIS Controls that are not supported for automated checks done by Security Hub: <code>CIS 1.1, 1.2, 1.3, 1.11, 1.13, 1.18, 1.19, 1.20, 1.21, 2.1.1, 2.1.3, 2.1.4, 4.15, 5.4</code>
+- CIS Controls that were in CIS v1.2.0, but not supported in CIS v1.4.0, and Controls for which automated control check is disabled by AWS Security Hub for CIS v1.4.0: <code>CIS 1.15, 4.1, 4.2, 5.2</code>
+> Note: Here, Control ID 5.2 is covered under 5.1 – Network ACL should not allow ingress from 0.0.0.0/0 to remote administration ports.
