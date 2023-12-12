@@ -8,7 +8,7 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
  - [Required AWS Services & Components](#3-required-aws-services--components)
  - [Environment Setup](#4-environment-setup)
  - [Remediation Actions](#5-remediation-actions)
-    - Unsupported CIS Controls (#update later)
+    - [Unsupported CIS Controls](#5-1-unsupported-controls)
     - Supported CIS Controls(#update later)
         - IAM Controls(#update later)
         - Storage Controls(#update later)
@@ -187,3 +187,12 @@ Also, information required to allow you to customize remediation actions by modi
 - CIS Controls that are not supported for automated checks done by Security Hub: <code>CIS 1.1, 1.2, 1.3, 1.11, 1.13, 1.18, 1.19, 1.20, 1.21, 2.1.1, 2.1.3, 2.1.4, 4.15, 5.4</code>
 - CIS Controls that were in CIS v1.2.0, but not supported in CIS v1.4.0, and Controls for which automated control check is disabled by AWS Security Hub for CIS v1.4.0: <code>CIS 1.15, 4.1, 4.2, 5.2</code>
 > Note: Here, Control ID 5.2 is covered under 5.1 – Network ACL should not allow ingress from 0.0.0.0/0 to remote administration ports.
+
+## 5.2.	Supported Controls
+
+Among the controls supported by AWS for automated checks done by Security Hub, some need manual intervention for remediation (like setting up MFA, Root account setting modifications), while others can be auto remediated. Below is the summary of the remediation action done for each CIS controls:
+
+### 5.2.1. Controls that require "Manual" remediation:
+
+| **Prasanna** | **Venkatesan** | **Aravindan** |
+| 22 | 23 | 24 |
