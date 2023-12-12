@@ -213,7 +213,7 @@ Below is the summary of the remediation action done for each CIS controls:
 
 For the above controls, EventBridge Rule is set to be triggered only upon clicking <code>Custom Action</code> feature in Security Hub.
 
-1. To Create a Custom Action, in the Security Hub Delegated Administrator, go to <code>Security Hub > Custom Action > Create Custom Action<code> _(say, CIS_Remediation)_
+1. To Create a Custom Action, in the Security Hub Delegated Administrator, go to <code>Security Hub > Custom Action > Create Custom Action</code> _(say, CIS_Remediation)_
 2. Now, go to <code>EventBridge > Rules > Create Rule</code> & Choose your desired rule name _(say, CIS_Remediation_Master_CustomAction_Trigger)_ and give a description.
 3. Choose the <code>EventBridge source</code> as “AWS Events or EventBridge partner events”, and <code>Creation method</code> as <code>Use pattern form</code>.
     ![EventBridge Initial Setup](./screenshots/eventbridge_initial_setup.png)
