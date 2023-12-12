@@ -228,7 +228,6 @@ For the above controls, EventBridge Rule is set to be triggered only upon clicki
 #### How to Trigger this?
 Choose a FAILED compliancy control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
 
-<center>`Sample Email Notification mentioning steps to perform remediation`</center>
 ![Sample Email Notification mentioning steps to perform remediation](./screenshots/manual_control_email.png)
 <center>Sample Email Notification mentioning steps to perform remediation</center>
 
