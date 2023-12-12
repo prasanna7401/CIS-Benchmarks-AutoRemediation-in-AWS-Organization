@@ -60,17 +60,17 @@ In an AWS Organization setup with hundreds of accounts, enforcing organization-l
 
 ### 2.1. Security Hub setup in AWS Organizations
 
-![Security Hub setup in AWS Organization setup with Delegated Administrator](./screenshots/security-hub-in-organization.png)
+![Security Hub setup in AWS Organization setup with Delegated Administrator](./screenshots/architecture_securityhub_organization_setup.png)
 
 In an AWS Organizations setup, there will be a [Delegated Administrator Account](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_delegate_policies.html) for Security Hub. This account will act as a Centralized Security Dashboard for the entire organization.
 
 ### 2.2. Remediation Action Flow based on a Security Hub Finding - Simplified
 
-![Simplified Remediation Action Flow architecture](./screenshots/remediation-flow-simple.png)
+![Simplified Remediation Action Flow architecture](./screenshots/architecture_remediation_flow_simple.png)
 
 ### 2.3. Remediation Action Flow based on a Security Hub Finding - Detailed
 
-![Detailed Remediation Action Flow architecture](./screenshots/remediation-flow-detailed.png)
+![Detailed Remediation Action Flow architecture](./screenshots/architecture_remediation_flow_detailed.png)
 
 The above architecture will be explained in detail in the [Remediation Actions](#5-remediation-actions) section
 
@@ -107,10 +107,10 @@ The above architecture will be explained in detail in the [Remediation Actions](
     ![Include global resource type setting](./screenshots/include_global_resource.png)
 3. Set the <code>Deployment options</code> as per your requirement. But for our implementation, we need the deployment targets to be the entire organization.
 
-    ![Deployment Targets](./screenshots/deployment_target.png)
+    ![Deployment Targets](./screenshots/cloudformation_deployment_target.png)
 4. Set the <code>Auto-deployment</code> options as <code>Activated</code>, so that when a new member is added, AWS Config is enabled as per our requirements.
 
-   ![Deployment Targets](./screenshots/auto_deployment.png)
+   ![Deployment Targets](./screenshots/cloudformation_auto_deployment.png)
 5. Choose the deployment regions as per your requirement & Click Next > Submit to deploy.
 
 Now, AWS Config will be enabled in all the organization member accounts in the regions you have specified.
@@ -121,7 +121,7 @@ Now, AWS Config will be enabled in all the organization member accounts in the r
 2. Choose the Regions which you want to be aggregated, so that all region findings will be shown in the Security Hub dashboard of the primary region. Click Next.
 3. For the <code>Configuration type</code>, you can either choose to use the AWS Recommended setting to enable all standards or choose <code>Customize my Security Hub configuration</code> and choose only <code>CIS AWS Foundations Benchmark v1.4.0</code>
 
-    ![Enable Security Hub using Central Configuration option from Delegated Administrator's Security Hub Console](./screenshots/enable_security_hub.png)
+    ![Enable Security Hub using Central Configuration option from Delegated Administrator's Security Hub Console](./screenshots/securityhub_central_enable.png)
 4. Choose Deploy to all accounts > Next > Submit.
 
 Now, AWS Security Hub will be enabled in the regions that you have mentioned, with controls checks for CIS 1.4.0 enabled. For more information, refer to the [AWS Documentation - Security Hub Central Configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/central-configuration-intro.html)
@@ -166,7 +166,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 3. Also, set Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
 4. During the deployment, CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
 
-    ![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/member_role_deployment_parameter.png)
+    ![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/cloudformation_member_role_deployment_parameter.png)
 
 ### 4.6. Optional Requirements
 
@@ -229,7 +229,7 @@ For the above controls, EventBridge Rule is set to be triggered only upon clicki
 Choose a FAILED compliancy control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
 
 _Sample Email Notification mentioning steps to perform remediation_
-![Sample Email Notification mentioning steps to perform remediation](./screenshots/manual_control_email.png)
+![Sample Email Notification mentioning steps to perform remediation](./screenshots/email_manual.png)
 
 
 > Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
@@ -322,3 +322,23 @@ _Sample Email Notification mentioning steps to perform remediation_
 > Note: 
 > 1. For CIS 5.1 remediation, I am working on modifying the code, so that the auto-remediation is done not by removing the non-compliant resource, but by replacing the source IP as a private IP range. This will ensure that, only users connected to the Organization network directly or via VPN can access services via remote administration ports.
 
+#### Setup EventBridge Rule for Automatic Remediation
+
+> For the above controls, EventBridge Rule is set to be triggered automatically using a EventBridge rule will needs to be created. Follow the first three steps as indicated, while creating the previous Custom-Action based EventBridge rule. 
+Here, only the Event Pattern will change as given below:
+
+1. Choose the <code>Event type</code> as <code>Security Hub Findings – Imported</code> & Compliance Status as <code>FAILED</code>.
+    ![Event Pattern - 1](./screenshots/eventbridge_pattern_auto_1.png)
+2. Choose the other <code>Event Type Specifications</code> as per your requirements,and modify the <code>Workflow status</code> as <code>NEW</code>
+    ![Event Pattern - 2](./screenshots/eventbridge_pattern_auto_2.png)
+3. Now, enter all the <code>GeneratorId</code> of the controls that you want to be automatically remediated. 
+    ![Event Pattern - 3](./screenshots/eventbridge_pattern_auto_3.png)
+4. Click Next & choose the <code>Target</code> as the <code>Remediation Lambda function</code> and <code>Create Rule</code>.
+
+> Note: 
+> For all the controls supporting auto-remediation, once a remediation is done, the lambda function will send an email notification to the SNS topic (created earlier using CloudFormation template [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml)) with information about the actions taken. 
+
+_Sample Email Notification mentioning remediation actions taken_
+![Sample Email Notification mentioning remediation actions taken](./screenshots/email_auto.png)
+
+> Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for a remediation that has already happened.
