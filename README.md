@@ -10,13 +10,15 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
  - [Remediation Actions](#5-remediation-actions)
     - [Unsupported CIS Controls](#5-1-unsupported-controls)
     - Supported CIS Controls(#update later)
-        - Controls that require "Manual" remediation
+        - [Controls that require "Manual" remediation](#update later)
+          - [Setup EventBridge Rule based on Custom Action (Manual)](#update later)
         - Controls that support "Auto" remediation
           - [IAM Controls](#update later)
           - [Storage Controls](#update later)
           - [Logging Controls](#update later)
           - [Monitoring Controls](#update later)
           - [Networking Controls](#update later)
+          - [Setup EventBridge Rule based on GeneratorId (Automated)](#update later)
  - [Test Results](#6-test-results)
  - #### ADD SOMETHING HERE
 
@@ -211,7 +213,7 @@ Below is the summary of the remediation action done for each CIS controls:
 
 > The Generator ID mentioned above, is retrieved from the Security Hub Findings. This will be useful in setting up custom EventBridge rules depending on your requirements.
 
-#### Setup Custom Action based EventBridge Rule for "Manual" remediation controls
+#### Setup EventBridge Rule based on Custom Action
 
 For the above controls, EventBridge Rule is set to be triggered only upon clicking <code>Custom Action</code> feature in Security Hub.
 
