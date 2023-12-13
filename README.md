@@ -9,8 +9,8 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
  - [Environment Setup](#4-environment-setup)
  - [Remediation Actions](#5-remediation-actions)
     - [Unsupported CIS Controls](#5-1-unsupported-controls)
-    - Supported CIS Controls(#update later)
-        - [Controls that require "Manual" remediation](#update later)
+    - [Supported CIS Controls](#52supported-controls)
+        - [Controls that require "Manual" remediation](#521-controls-that-require-manual-remediation)
           - [Setup EventBridge Rule based on Custom Action (Manual)](#setup-eventbridge-rule-based-on-custom-action)
         - [Controls that support "Auto" remediation](#522-controls-that-support-automatic-remediation)
           - [IAM Controls](#a-iam-controls)
@@ -192,7 +192,7 @@ Also, information required to allow you to customize remediation actions by modi
 - CIS Controls that were in CIS v1.2.0, but not supported in CIS v1.4.0, and Controls for which automated control check is disabled by AWS Security Hub for CIS v1.4.0: <code>CIS 1.15, 4.1, 4.2, 5.2</code>
 > Note: Here, Control ID 5.2 is covered under 5.1 – Network ACL should not allow ingress from 0.0.0.0/0 to remote administration ports.
 
-## 5.2.	Supported Controls
+### 5.2.	Supported Controls
 
 Among the controls supported by AWS for automated checks done by Security Hub, some need manual intervention for remediation (like setting up MFA, Root account setting modifications), while others can be auto-remediated. 
 
@@ -200,7 +200,7 @@ Among the controls supported by AWS for automated checks done by Security Hub, s
 
 Below is the summary of the remediation action done for each CIS controls:
 
-### 5.2.1. Controls that require "Manual" remediation
+#### 5.2.1. Controls that require "Manual" remediation
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID |
 |----------|----------|----------|----------|
@@ -239,9 +239,9 @@ _Sample Email Notification mentioning steps to perform remediation_
 > Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
 
 
-### 5.2.2. Controls that support "Automatic" remediation
+#### 5.2.2. Controls that support "Automatic" remediation
 
-#### A) IAM Controls 
+##### A) IAM Controls 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
 |----------|----------|----------|----------|----------|
@@ -258,7 +258,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 > 2. For CIS 1.8 & CIS 1.9 remediation, you can further customise the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
 
 
-#### B) Storage Controls 
+##### B) Storage Controls 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
 |----------|----------|----------|----------|----------|
@@ -271,7 +271,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 > 1. For CIS 2.2.1 remediation, the Remediation Lambda function’s execution **timeout needs to be 5 seconds**
 
 
-#### C) Logging Controls 
+##### C) Logging Controls 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
 |----------|----------|----------|----------|----------|
@@ -293,7 +293,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 > 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with description containing these keywords will not be rotated.
 > > All the above variable changes need to be done in [lambda_function.py](./main/lambda_function.py)
 
-#### D) Monitoring Controls 
+##### D) Monitoring Controls 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
 |----------|----------|----------|----------|----------|
@@ -316,7 +316,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 >> 2. <code>alarm_sns_topic</code> – SNS topic ARN that needs to be notified when Alarm threshold limit is reached.
 >> 3. <code>threshold_value</code> – Choose your desired threshold limit `(default = 1)`.
 
-#### D) Networking Controls 
+##### D) Networking Controls 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken |
 |----------|----------|----------|----------|----------|
