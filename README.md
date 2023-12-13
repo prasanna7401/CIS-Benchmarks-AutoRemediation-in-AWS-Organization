@@ -390,10 +390,10 @@ Some of the future prospectives of this project includes,
 I would like to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
 
 - Contributors
- - [Danush Adhitya](https://github.com/danushadhitya) - Contributor 1
- - [Harish Kumaar]()
- - [Hyagiriva Aravindan](https://github.com/Hyagiriva)
+   - [Danush Adhitya](https://github.com/danushadhitya)
+   - [Harish Kumaar]()
+   - [Hyagiriva Aravindan](https://github.com/Hyagiriva)
    
 - Mentor:
- - [Mohammad Reza Bagheri](ttps://github.com/BagheriReza)
+ - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
 
