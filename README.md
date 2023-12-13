@@ -60,6 +60,8 @@ Below are the four sections:
 
 In an AWS Organization setup with hundreds of accounts, enforcing organization-level security regulations for each resource deployed in various regions is a tedious task. An organization's security team will need to put a lot of effort into taking necessary actions to increase the Compliancy score.
 
+<!-- Document authored by Prasanna Venkatesan Aravindan (prasanna7401@gmail.com) on 12th December 2023 -->
+
 ## 2. PROPOSED ARCHITECTURE
 
 ### 2.1. Security Hub setup in AWS Organizations
@@ -158,6 +160,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
             ]
     }
     ```
+    
 6. Attach this permission policy to the remediation lambda function’s IAM role, in addition to the default lambda permissions.
 
 ### 4.5. Create an IAM Role in Member Accounts
@@ -185,6 +188,7 @@ Now, all the requirements to implement our solution have been setup.
 Out of 58 different remediation controls suggested by CIS, a few are not supported by AWS. For more information, refer to the [AWS documentation - Center for Internet Security (CIS) AWS Foundations Benchmark v1.2.0 and v1.4.0](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html)
 
 Also, information required to allow you to customize remediation actions by modifying the variable values in [lambda_function.py](./main/lambda_function.py) has been provided wherever required, for each of the CISv1.4.0 control
+<!-- This document has been authored by Prasanna Venkatesan Aravindan on 12th December 2023 -->
 
 ### 5.1. Unsupported Controls
 
@@ -380,3 +384,16 @@ Some of the future prospectives of this project includes,
 - Design a more adaptable solution, which will also perform remediation for other industry security standards like NIST, PCI DSS, HIPAA, SOC2, etc.
 - "Fully" automate the deployment of our solution using CloudFormation templates.
 - Add more remediation conditions for control remediations that "may" cause a production impact
+
+### Acknowledgements
+
+I would like to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
+
+- Contributors
+ - [Danush Adhitya](https://github.com/danushadhitya) - Contributor 1
+ - [Harish Kumaar]()
+ - [Hyagiriva Aravindan](https://github.com/Hyagiriva)
+   
+- Mentor:
+ - [Mohammad Reza Bagheri](ttps://github.com/BagheriReza)
+
