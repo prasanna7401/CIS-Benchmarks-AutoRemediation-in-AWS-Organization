@@ -10,11 +10,13 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
  - [Remediation Actions](#5-remediation-actions)
     - [Unsupported CIS Controls](#5-1-unsupported-controls)
     - Supported CIS Controls(#update later)
-        - IAM Controls(#update later)
-        - Storage Controls(#update later)
-        - Logging Controls(#update later)
-        - Monitoring Controls(#update later)
-        - Networking Controls(#update later)
+        - Controls that require "Manual" remediation
+        - Controls that support "Auto" remediation
+          - [IAM Controls](#update later)
+          - [Storage Controls](#update later)
+          - [Logging Controls](#update later)
+          - [Monitoring Controls](#update later)
+          - [Networking Controls](#update later)
  - [Test Results](#6-test-results)
  - #### ADD SOMETHING HERE
 
