@@ -18,7 +18,7 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
           - [Logging Controls](#c-logging-controls)
           - [Monitoring Controls](#d-monitoring-controls)
           - [Networking Controls](#d-networking-controls)
-          - [Setup EventBridge Rule based on GeneratorId (Automated)](#setup-eventbridge-rule-for-automatic-remediation)
+          - [Setup EventBridge Rule based on "GeneratorId" (Automated)](#setup-eventbridge-rule-for-automatic-remediation)
  - [Test Results](#6-test-results)
  - #### ADD SOMETHING HERE
 
