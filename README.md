@@ -361,7 +361,7 @@ _Sample Email Notification mentioning remediation actions taken_
     ![Email notification showing remediation action taken](./screenshots/test_email.png)
 - After auto-remediation is performed, the non-compliant rules have been removed from the NACL.
     ![NACL rules after auto-remediation](./screenshots/test_good_nacl.png)
-- During the next check done by Security Hub, the Compliancy status will become <code>PASSED<code>.
+- During the next check done by Security Hub, the Compliancy status will become <code>PASSED</code>.
     ![Security Hub Compliance Status showing PASSED after auto-remediation](./screenshots/test_compliancy_pass.png)
 
 ## 7. Future Work Prospectives
