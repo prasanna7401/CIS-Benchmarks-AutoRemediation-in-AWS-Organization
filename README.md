@@ -399,7 +399,7 @@ I would like to express my gratitude to the following individuals for their cont
    - [Hyagiriva Aravindan](https://github.com/Hyagiriva)
    
 - Mentor:
- - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
+  - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
 
 ### Contact
 
