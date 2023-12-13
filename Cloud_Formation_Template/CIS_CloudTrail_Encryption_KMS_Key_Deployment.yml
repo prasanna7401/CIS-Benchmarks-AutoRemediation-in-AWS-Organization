@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Creates a KMS Key required for implementing CloudTrail encryption-at-rest
+Resources:
+  MyKMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: KMS key for CloudTrail encryption
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action: "kms:*"
+            Resource: "*"
+          - Sid: Allow CloudTrail to use the key for encryption and decryption
+            Effect: Allow
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Action:
+              - "kms:Encrypt"
+              - "kms:Decrypt"
+              - "kms:ReEncrypt*"
+              - "kms:GenerateDataKey*"
+              - "kms:DescribeKey"
+            Resource: "*"
+
+  MyKMSKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: "alias/CIS_CloudTrail_Encryption_Key"
+      TargetKeyId: !Ref MyKMSKey
