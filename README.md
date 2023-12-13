@@ -20,7 +20,7 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
           - [Networking Controls](#d-networking-controls)
           - [Setup EventBridge Rule based on "GeneratorId" (Automated)](#setup-eventbridge-rule-for-automatic-remediation)
  - [Test Results](#6-test-results)
- - #### ADD SOMETHING HERE
+ - [Conclusion](#7-conclusion)
 
 ## 1. INTRODUCTION
 ### 1.1. Introduction
@@ -347,7 +347,7 @@ _Sample Email Notification mentioning remediation actions taken_
 
 > Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for a remediation that has already happened.
 
-## 6. Test Results
+## 6. TEST RESULTS
 
 > Test Case:
 > > CIS Control ID 5.1 - Network ACLs should not allow ingress from 0.0.0.0/0 to Remote Administration ports.
@@ -359,7 +359,7 @@ _Sample Email Notification mentioning remediation actions taken_
 
     ![Security Hub Compliance Status showing FAILED](./screenshots/test_compliancy_fail.png)
 - This <code>FAILED</code> & <code>NEW</code> status will automatically trigger the Remediation Lambda function to perform the remediation action in the respective member account, in the region where the non-compliant resource exists. See the below CloudWatch log of the Remediation Lambda for reference.
-- 
+
     ![CloudWatch logs indicating remediation lambda execution](./screenshots/test_cloudwatchlogs.png)
 - The below email notification has been sent to the emails subscribed to the SNS topic created created with CloudFormation template [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml).
   
@@ -371,7 +371,9 @@ _Sample Email Notification mentioning remediation actions taken_
   
     ![Security Hub Compliance Status showing PASSED after auto-remediation](./screenshots/test_compliancy_pass.png)
 
-## 7. Future Work Prospectives
+### 7. CONCLUSION
+
+#### Future Work Prospectives
 
 Some of the future prospectives of this project includes,
 - Find a way to perform Security Checks for the controls checks that are not supported by AWS Security Hub (e.g. CIS 1.1, 1.2, etc.)
