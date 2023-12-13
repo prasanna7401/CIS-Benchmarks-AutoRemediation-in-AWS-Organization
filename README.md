@@ -385,6 +385,10 @@ Some of the future prospectives of this project includes,
 - "Fully" automate the deployment of our solution using CloudFormation templates.
 - Add more remediation conditions for control remediations that "may" cause a production impact
 
+### Disclaimer
+
+All the remediation codes provided in this repository have been tested under a Test AWS Organization Environment setup. Before you try to implement this in your environment, make sure you go through the entire documentation, and the code.
+
 ### Acknowledgements
 
 I would like to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
@@ -397,3 +401,6 @@ I would like to express my gratitude to the following individuals for their cont
 - Mentor:
  - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
 
+### Contact
+
+For any issues or concerns in the code or implementation procedure, please [email me](mailto:prasanna7401@gmail.com) 
