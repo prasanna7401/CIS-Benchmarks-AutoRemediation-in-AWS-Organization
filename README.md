@@ -345,3 +345,29 @@ _Sample Email Notification mentioning remediation actions taken_
 ![Sample Email Notification mentioning remediation actions taken](./screenshots/email_auto.png)
 
 > Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for a remediation that has already happened.
+
+## 6. Test Results
+
+> Test Case:
+> > CIS Control ID 5.1 - Network ACLs should not allow ingress from 0.0.0.0/0 to Remote Administration ports.
+
+- NACL with non-compliant rules
+    ![NACL with non-compliant rules](./screenshots/test_bad_nacl.png)
+- Security Hub Compliance Status showing <code>FAILED</code>
+    ![Security Hub Compliance Status showing FAILED](./screenshots/test_compliancy_fail.png)
+- This <code>FAILED</code> & <code>NEW</code> status will automatically trigger the Remediation Lambda function to perform the remediation action in the respective member account, in the region where the non-compliant resource exists. See the below CloudWatch log of the Remediation Lambda for reference.
+    ![CloudWatch logs indicating remediation lambda execution](./screenshots/test_cloudwatchlogs.png)
+- The below email notification has been sent to the emails subscribed to the SNS topic created created with CloudFormation template [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml).
+    ![Email notification showing remediation action taken](./screenshots/test_email.png)
+- After auto-remediation is performed, the non-compliant rules have been removed from the NACL.
+    ![NACL rules after auto-remediation](./screenshots/test_good_nacl.png)
+- During the next check done by Security Hub, the Compliancy status will become <code>PASSED<code>.
+    ![Security Hub Compliance Status showing PASSED after auto-remediation](./screenshots/test_compliancy_pass.png)
+
+## 7. Future Work Prospectives
+
+Some of the future prospectives of this project includes,
+- Find a way to perform Security Checks for the controls checks that are not supported by AWS Security Hub (e.g. CIS 1.1, 1.2, etc.)
+- Design a more adaptable solution, which will also perform remediation for other industry security standards like NIST, PCI DSS, HIPAA, SOC2, etc.
+- "Fully" automate the deployment of our solution using CloudFormation templates.
+- Add more remediation conditions for control remediations that "may" cause a production impact
