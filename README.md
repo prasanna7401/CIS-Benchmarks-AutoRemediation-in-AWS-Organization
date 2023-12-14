@@ -107,7 +107,7 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 > To ensure that Security Hub can access its findings, it is necessary to activate AWS Config in the desired regions across all member accounts within the organization.
 
-1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yml](./Cloud_Formation_Template/Enable_AWS_Config.yml) template file.
+1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yml](./CloudFormation_Templates/Enable_AWS_Config.yml) template file.
 2. Choose the Parameters values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because because AWS Config need not perform redundant checks for Global resources like IAM in each region unnecessarily.
 
     ![Include global resource type setting](./screenshots/cloudformation_include_global_resource_parameter.png)
@@ -136,7 +136,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 
 > To be able to get email notification about the remediation steps taken for an automatically remediated CIS control check or get the steps to perform remediation for a control check that is triggered manually, we need to create an SNS topic in the organization member accounts in whichever region we are performing the remediation. 
 
-1. To do this, use the [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml) file and deploy using CloudFormation StackSets in all organization members in all regions that you want. Also, let the auto-deployment option be in Activated state.
+1. To do this, use the [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml) file and deploy using CloudFormation StackSets in all organization members in all regions that you want. Also, let the auto-deployment option be in Activated state.
 2. Now, you can have necessary email accounts to subscribe to this SNS topic to receive notification.
 
 ### 4.4. Setup Remediation Lambda Function
@@ -167,7 +167,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 
 > To allow our lambda function to be able to perform remediation action in the organization member accounts, it needs to have sufficient permissions. For this, we need an IAM role in the member accounts, which will be assumed by our lambda function.
 
-1. Using the CloudFormation template [CIS_Remediator_Role_Deployment.yml](./Cloud_Formation_Template/CIS_Remediator_Role_Deployment.yml), we will create an IAM role named <code>CIS_Remediator_Role</code> with AWS-managed permission AdministratorAccess with ARN <code>arn:aws:iam::aws:policy/AdministratorAccess</code>.
+1. Using the CloudFormation template [CIS_Remediator_Role_Deployment.yml](./CloudFormation_Templates/CIS_Remediator_Role_Deployment.yml), we will create an IAM role named <code>CIS_Remediator_Role</code> with AWS-managed permission AdministratorAccess with ARN <code>arn:aws:iam::aws:policy/AdministratorAccess</code>.
 > If you wish not to give Administrator Access to the assumed member account IAM role, you need to create an IAM policy with necessary permissions that allows the lambda function to perform the necessary remediation actions for all of the CIS Controls. In this case, you can use your own CloudFormation template to create an IAM policy in all the member accounts, and change the ARN of the policy in "CIS_Remediator_Role_Deployment.yml"
 2. Since IAM is a global resource, choose only one deployment region.
 3. Also, set Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
@@ -177,7 +177,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 
 ### 4.6. Optional Requirements
 
-For the <code>CIS Control ID – 3.7</code>: CloudTrail Logs should have encryption at-rest enabled, we need a KMS key with sufficient permissions. To be able to automatic remediate this control, use CloudFormation StackSets to deploy [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./Cloud_Formation_Template/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) across all member accounts in the desired regions.
+For the <code>CIS Control ID – 3.7</code>: CloudTrail Logs should have encryption at-rest enabled, we need a KMS key with sufficient permissions. To be able to automatic remediate this control, use CloudFormation StackSets to deploy [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./CloudFormation_Templates/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) across all member accounts in the desired regions.
 
 > Additional Resources: If you would like to Disable or Force Enable any of the Security Hub Controls in your organization member accounts, you can implement solutions suggested in the below [AWS blog - Disabling Security Hub Controls in a Multi-Account Environment](https://aws.amazon.com/blogs/security/disabling-security-hub-controls-in-a-multi-account-environment/)
 
@@ -285,7 +285,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 |   3.4  |   <code>CloudTrail.5</code> |   CloudTrail trails should be integrated with Amazon CloudWatch Logs  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.4</code>  |   Creates CloudWatch log & IAM role (if not exists) with CloudWatch log writing permissions & integrates CloudTrail with CloudWatch Log group |
 |   3.5  |   <code>Config.1</code> |   AWS Config must be enabled in all regions to monitor all resources  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.5</code>  |  No remediation code has been provided for this Control ID. Because, while enabling AWS config at organization level, we have setup <code>Include Global Resources</code> as <code>FALSE</code> to avoid redundant checks for global resources like IAM. Since AWS Config checks is not allowed for all resources, this control check will be in FAILED state. You can choose to disable this control check if you wish.  |
 |   3.6  |   <code>CloudTrail.7</code> |   Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.6</code>  |   Enables <code>Server Access Logging</code> in CloudTrail S3 bucket’s properties  |
-|   3.7  |   <code>CloudTrail.2</code> |   CloudTrail Logs should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.7</code>  |   Enabled <code>Log file SSE-KMS encryption</code> using the KMS key created using CloudFormation template [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./Cloud_Formation_Template/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) earlier.  |
+|   3.7  |   <code>CloudTrail.2</code> |   CloudTrail Logs should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.7</code>  |   Enabled <code>Log file SSE-KMS encryption</code> using the KMS key created using CloudFormation template [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./CloudFormation_Templates/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) earlier.  |
 |   3.8  |   <code>KMS.4</code> |   AWS KMS key rotation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.8</code>  |   Enables <code>Automatically rotate this KMS key every year</code> option  |
 |   3.9  |   <code>EC2.6</code> |   Ensure VPC Flow (reject) logging is enabled in all VPCs  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.9</code>  |   Enables VPC flow logging by creating a new CloudWatch Log group, and an IAM role with log group write permissions, to log <code>REJECT</code> logs for each VPC.  |
 |   3.10  |   <code>CloudTrail.1</code> |   Ensure that object-level logging for Write events is enabled for S3 buckets  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.10</code>  |   Remediated under CIS 3.1  |
@@ -345,7 +345,7 @@ Here, only the Event Pattern will change as given below:
 If you want to disable this Automatic Remediation, you can click on the EventBridge Rule you had created, and choose <code>Disable</code>
 
 > Note: 
-> For all the controls supporting auto-remediation, once a remediation is done, the lambda function will send an email notification to the SNS topic (created earlier using CloudFormation template [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml)) with information about the actions taken. 
+> For all the controls supporting auto-remediation, once a remediation is done, the lambda function will send an email notification to the SNS topic (created earlier using CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml)) with information about the actions taken. 
 
 _Sample Email Notification mentioning remediation actions taken_
 
@@ -367,7 +367,7 @@ _Sample Email Notification mentioning remediation actions taken_
 - This <code>FAILED</code> & <code>NEW</code> status will automatically trigger the Remediation Lambda function to perform the remediation action in the respective member account, in the region where the non-compliant resource exists. See the below CloudWatch log of the Remediation Lambda for reference.
 
     ![CloudWatch logs indicating remediation lambda execution](./screenshots/test_cloudwatchlogs.png)
-- The below email notification has been sent to the emails subscribed to the SNS topic created created with CloudFormation template [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml).
+- The below email notification has been sent to the emails subscribed to the SNS topic created created with CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml).
   
     ![Email notification showing remediation action taken](./screenshots/test_email.png)
 - After auto-remediation is performed, the non-compliant rules have been removed from the NACL.
