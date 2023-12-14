@@ -342,6 +342,8 @@ Here, only the Event Pattern will change as given below:
 
    ![Event Pattern - Autotrigger](./screenshots/eventbridge_pattern_auto.png)
 
+If you want to disable this Automatic Remediation, you can click on the EventBridge Rule you had created, and choose <code>Disable</code>
+
 > Note: 
 > For all the controls supporting auto-remediation, once a remediation is done, the lambda function will send an email notification to the SNS topic (created earlier using CloudFormation template [CIS_Remediation_Notification_Setup.yml](./Cloud_Formation_Template/CIS_Remediation_Notification_Setup.yml)) with information about the actions taken. 
 
