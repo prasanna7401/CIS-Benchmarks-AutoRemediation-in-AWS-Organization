@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Creates an SNS Topic in member accounts, to get email notification about remediation status
+Parameters: 
+  CISNotificationReceiver:
+      Type: String
+      Description: Enter email ID that needs to receive notification about remediation status
+
+Resources:
+  CISRemediationSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: CIS Remediator
+      Subscription:
+        - Protocol: email
+          Endpoint: !Ref CISNotificationReceiver
