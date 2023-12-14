@@ -105,16 +105,16 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 ### 4.1. Enable AWS Config
 
-> To allow Security Hub to get its findings, we need to enable AWS Config in each region of all organization member accounts.
+> To ensure that Security Hub can access its findings, it is necessary to activate AWS Config in the desired regions across all member accounts within the organization.
 
 1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yml](./Cloud_Formation_Template/Enable_AWS_Config.yml) template file.
-2. Choose the Parameters values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because we don’t want AWS Config to perform redundant checks for Global resources like IAM in each region unnecessarily.
+2. Choose the Parameters values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because because AWS Config need not perform redundant checks for Global resources like IAM in each region unnecessarily.
 
     ![Include global resource type setting](./screenshots/cloudformation_include_global_resource_parameter.png)
 3. Set the <code>Deployment options</code> as per your requirement. But for our implementation, we need the deployment targets to be the entire organization.
 
     ![Deployment Targets](./screenshots/cloudformation_deployment_target.png)
-4. Set the <code>Auto-deployment</code> options as <code>Activated</code>, so that when a new member is added, AWS Config is enabled as per our requirements.
+4. Set the <code>Auto-deployment</code> options as <code>Activated</code>, so that when a new member is added, AWS Config is enabled as per the setup.
 
    ![Deployment Targets](./screenshots/cloudformation_auto_deployment.png)
 5. Choose the deployment regions as per your requirement & Click Next > Submit to deploy.
