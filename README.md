@@ -101,6 +101,7 @@ The above architecture will be explained in detail in the [Remediation Actions](
 ## 4. ENVIRONMENT SETUP
 
 > Pre-requisite: An AWS Organization setup with multiple member accounts, and a management account. Also, Organization-level services like AWS Config, Security Hub, CloudFormation StackSet, CloudTrail, etc. must be enabled as per your requirement, and setup Delegated Administrator accounts for managing these services if needed.
+>> NOTE: Due to the AWS Organizations setup, whatever control measure implemented in the Organizations will NOT be enforced on the Organization Management Account
 
 ### 4.1. Enable AWS Config
 
