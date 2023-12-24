@@ -2,12 +2,6 @@
 
 This implementation uses AWS services like Security Hub, Lambda functions, and EventBridge rules, to perform near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup.
 
-:warning:
-
-:exclamation:
-
-:white_check_mark:
-
 ## Table of Contents
  - [Proposed Architecture](#2-proposed-architecture)
  - [Required AWS Services & Components](#3-required-aws-services--components)
@@ -250,6 +244,11 @@ _Sample Email Notification mentioning steps to perform remediation_
 
 
 #### 5.2.2. Controls that support "Automatic" remediation
+
+> For the below controls, the impact status has been given based on the performed automatic-remediation
+> > ❗- Impactful
+> > ⚠️ - Possible impact (depending on your setup)
+> > ✅ - Safe
 
 ##### A) IAM Controls 
 
