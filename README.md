@@ -246,9 +246,11 @@ _Sample Email Notification mentioning steps to perform remediation_
 #### 5.2.2. Controls that support "Automatic" remediation
 
 > For the below controls, the impact status has been given based on the performed automatic-remediation
-> > ❗- Impactful
-> > ⚠️ - Possible impact (depending on your setup)
-> > ✅ - Safe
+> > | Symbol | Description |
+> > |----------|----------|
+> > |  ❗  |  Impactful  |
+> > |  ⚠️  |  Possible impact (depending on your setup)  |
+> > |  ✅  |  Safe  |
 
 ##### A) IAM Controls 
 
