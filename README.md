@@ -10,14 +10,14 @@ This implementation uses AWS services like Security Hub, Lambda functions, and E
     - [Unsupported CIS Controls](#5-1-unsupported-controls)
     - [Supported CIS Controls](#52supported-controls)
         - [Controls that require "Manual" remediation](#521-controls-that-require-manual-remediation)
-          - [Setup EventBridge Rule based on Custom Action (Manual)](#setup-eventbridge-rule-based-on-custom-action) 👆
+          - [Setup EventBridge Rule based on Custom Action (Manual)](#setup-eventbridge-rule-based-on-custom-action)
         - [Controls that support "Auto" remediation](#522-controls-that-support-automatic-remediation)
           - [IAM Controls](#a-iam-controls) 👥
           - [Storage Controls](#b-storage-controls) 💾
           - [Logging Controls](#c-logging-controls) ✍️
           - [Monitoring Controls](#d-monitoring-controls) 👀
           - [Networking Controls](#d-networking-controls) 🌐
-          - [Setup EventBridge Rule based on "GeneratorId" (Automated)](#setup-eventbridge-rule-for-automatic-remediation) 📜
+          - [Setup EventBridge Rule based on "GeneratorId" (Automated)](#setup-eventbridge-rule-for-automatic-remediation)
  - [Test Results](#6-test-results)
  - [Conclusion](#7-conclusion)
 
