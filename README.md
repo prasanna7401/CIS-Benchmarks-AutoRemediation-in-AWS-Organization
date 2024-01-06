@@ -402,7 +402,7 @@ All the remediation codes provided in this repository have been tested under a T
 
 I would like to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
 
-- Contributors
+- Other Contributors:
    - [Danush Adhitya](https://github.com/danushadhitya)
    - [Harish Kumaar]()
    - [Hyagiriva Aravindan](https://github.com/Hyagiriva)
