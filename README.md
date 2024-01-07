@@ -405,7 +405,7 @@ I would like to express my gratitude to the following individuals for their cont
 - Other Contributors:
    - [Danush Adhitya](https://github.com/danushadhitya)
    - [Harish Kumaar]()
-   - 
+   - [Hyagiriva](https://github.com/Hyagiriva)
    
 - Mentor:
   - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
