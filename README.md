@@ -1,6 +1,6 @@
 # Deploying CISv1.4.0 Security Benchmark recommended controls with Auto-remediation in an AWS Multi-account setup
 
-This implementation uses AWS services like Security Hub, Lambda functions, and EventBridge rules, to perform near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup.
+This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber-threats.
 
 ## Table of Contents
  - [Proposed Architecture](#2-proposed-architecture)
