@@ -331,7 +331,7 @@ For the below controls, the impact status has been given based on the performed 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken | Impact |
 |----------|----------|----------|----------|----------|----------|
-|   5.1  |   <code>EC2.21</code>  |   Network ACLs should not allow ingress from 0.0.0.0/0 to remote administration ports  |   <code>security-control/EC2.21</code>  |   Removes the rule that allows connections from <code>ANY sources to port 22 & 3389, and also ANY to ANY</code> *Be cautious about removing ANY-ANY inbound rule, as NACL is stateless* |    ❗  |
+|   5.1  |   <code>EC2.21</code>  |   Network ACLs should not allow ingress from 0.0.0.0/0 to remote administration ports  |   <code>security-control/EC2.21</code>  |   Removes the rule that allows connections from <code>ANY sources to port 22 & 3389, and also ANY to ANY</code> *Be cautious while removing ANY-ANY inbound rule, as NACL is stateless* |    ❗  |
 |   5.3  |   <code>EC2.2</code>  |   VPC default security groups should not allow inbound or outbound traffic  |   <code>cis-aws-foundations-benchmark/v/1.4.0/5.3</code>  |   Removes all inbound & outbound rules from the Default security group of a VPC  |  ⚠️  |
 
 > Note: 
