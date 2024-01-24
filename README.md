@@ -2,26 +2,27 @@
 
 This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber-threats.
 
+## Table of summary
 <details>
  <summary> Click me </summary>
- ## something
- - [Proposed Architecture](#2-proposed-architecture)
- - [Required AWS Services & Components](#3-required-aws-services--components)
- - [Environment Setup](#4-environment-setup)
- - [Remediation Actions](#5-remediation-actions)
-    - [Unsupported CIS Controls](#5-1-unsupported-controls)
-    - [Supported CIS Controls](#52supported-controls)
-        - [Controls that require "Manual" remediation](#521-controls-that-require-manual-remediation)
-          - [Setup Custom-Action based EventBridge Rule](#setup-eventbridge-rule-based-on-custom-action)
-        - [Controls that support "Auto" remediation](#522-controls-that-support-automatic-remediation)
-          - [IAM Controls](#a-iam-controls)
-          - [Storage Controls](#b-storage-controls) 
-          - [Logging Controls](#c-logging-controls) 
-          - [Monitoring Controls](#d-monitoring-controls)
-          - [Networking Controls](#d-networking-controls)
-          - [Setup Auto-triggered EventBridge Rule](#setup-eventbridge-rule-for-automatic-remediation)
- - [Test Results](#6-test-results)
- - [Conclusion](#7-conclusion)
+ ### something
+  - [Proposed Architecture](#2-proposed-architecture)
+  - [Required AWS Services & Components](#3-required-aws-services--components)
+  - [Environment Setup](#4-environment-setup)
+  - [Remediation Actions](#5-remediation-actions)
+     - [Unsupported CIS Controls](#5-1-unsupported-controls)
+     - [Supported CIS Controls](#52supported-controls)
+         - [Controls that require "Manual" remediation](#521-controls-that-require-manual-remediation)
+           - [Setup Custom-Action based EventBridge Rule](#setup-eventbridge-rule-based-on-custom-action)
+         - [Controls that support "Auto" remediation](#522-controls-that-support-automatic-remediation)
+           - [IAM Controls](#a-iam-controls)
+           - [Storage Controls](#b-storage-controls) 
+           - [Logging Controls](#c-logging-controls) 
+           - [Monitoring Controls](#d-monitoring-controls)
+           - [Networking Controls](#d-networking-controls)
+           - [Setup Auto-triggered EventBridge Rule](#setup-eventbridge-rule-for-automatic-remediation)
+  - [Test Results](#6-test-results)
+  - [Conclusion](#7-conclusion)
 </details>
 
 
