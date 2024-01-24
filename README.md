@@ -25,6 +25,23 @@ This implementation performs near real-time "Automatic" remediation of NON-COMPL
   - [Conclusion](#7-conclusion)
 </details>
 
+## 1. Example
+<details>
+  <summary>Click me</summary>
+
+  ### Heading
+  1. Foo
+  2. Bar
+     * Baz
+     * Qux
+
+  ### Some Javascript
+  ```js
+  function logSomething(something) {
+    console.log('Something', something);
+  }
+  ```
+</details>
 
 ## 1. INTRODUCTION
 ### 1.1. Introduction
