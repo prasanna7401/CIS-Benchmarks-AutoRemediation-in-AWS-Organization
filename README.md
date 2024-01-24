@@ -2,7 +2,8 @@
 
 This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber-threats.
 
-## Table of Contents
+<details>
+ <summary> ## Table of Contents </summary>
  - [Proposed Architecture](#2-proposed-architecture)
  - [Required AWS Services & Components](#3-required-aws-services--components)
  - [Environment Setup](#4-environment-setup)
@@ -20,6 +21,8 @@ This implementation performs near real-time "Automatic" remediation of NON-COMPL
           - [Setup Auto-triggered EventBridge Rule](#setup-eventbridge-rule-for-automatic-remediation)
  - [Test Results](#6-test-results)
  - [Conclusion](#7-conclusion)
+</details>
+
 
 ## 1. INTRODUCTION
 ### 1.1. Introduction
