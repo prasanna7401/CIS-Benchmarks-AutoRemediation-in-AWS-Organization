@@ -384,7 +384,7 @@ _Sample Email Notification mentioning remediation actions taken_
 - The below email notification has been sent to the emails subscribed to the SNS topic created created with CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml).
   
     ![Email notification showing remediation action taken](./screenshots/test_email.png)
-- After auto-remediation is performed, the non-compliant rules have been removed from the NACL.
+- Once auto-remediation is performed, you can confirm that the non-compliant rules have been removed from the NACL.
   
     ![NACL rules after auto-remediation](./screenshots/test_good_nacl.png)
 - During the next check done by Security Hub, the Compliancy status will become <code>PASSED</code>.
