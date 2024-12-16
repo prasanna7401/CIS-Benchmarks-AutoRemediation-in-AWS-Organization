@@ -3,6 +3,7 @@
 This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber-threats.
 
 ```Last updated - Jan 2024```
+# This repo contains the basic information required to get a solid understanding of the implementation architecture. For the most recent CISv3.
 
 ## Table of Contents
 <details>
@@ -154,7 +155,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 4. To allow this Remediation Lambda function to be able to assume role <code>CIS_Remediator_Role</code> in the member accounts (we will create after we set this function). We need to give it _sts:AssumeRole_ permission policy. 
 5. To do this, Create an IAM Policy with your preferred name _(say, CIS_Remediator_MemberRoleAssumption)_ with the below mentioned permission, so that the lambda function can assume the _CIS_Remediator_Role_ role in the member accounts to perform remediation.
 
-    ```
+    ```json
     {
             "Version": "2012-10-17",
             "Statement": [
@@ -410,9 +411,8 @@ All the remediation codes provided in this repository have been tested under a T
 I would like to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
 
 - Other Contributors:
-   - [Danush Adhitya](https://github.com/danushadhitya)
-   - [Harish Kumaar]()
-   - [Hyagiriva Aravindan](https://github.com/Hyagiriva)
+   - v1.4.0 - [Danush Adhitya](https://github.com/danushadhitya) 
+   - v3.0.0 - [Yang Han](https://github.com/WarrenHan1130), [Yarui Qiu](https://github.com/LottieQ)
    
 - Mentor:
   - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
