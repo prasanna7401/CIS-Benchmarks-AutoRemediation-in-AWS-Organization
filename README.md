@@ -3,7 +3,6 @@
 This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber-threats.
 
 ```Last updated - Jan 2024```
-# This repo contains the basic information required to get a solid understanding of the implementation architecture. For the most recent CISv3.
 
 ## Table of Contents
 <details>
