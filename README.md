@@ -1,6 +1,6 @@
 # Deploying CISv1.4.0 Security Benchmark recommended controls with Auto-remediation in an AWS Multi-account setup
 
-This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber-threats.
+This implementation performs near real-time "Automatic" remediation of NON-COMPLIANT resources in an AWS Organizations (multi-account) setup, by using AWS services like Security Hub, Lambda functions, EventBridge rules, etc. It will help in increasing the organization-level security compliance score to protect their cloud environment from cyber threats.
 
 ```Last updated - Jan 2024```
 
@@ -44,7 +44,7 @@ The CIS AWS Foundations Benchmark is a set of security best practices for Amazon
 
 ### 1.4.	Importance of CIS Benchmarks
 
-The CIS Benchmarks are globally recognized and accepted best practice guides for securing IT infrastructure. The benchmarks are freely available for download and implementation, and provide up-to-date, step-by-step instructions for organizations to secure their infrastructure. 
+The CIS Benchmarks are globally recognized and accepted best practice guides for securing IT infrastructure. The benchmarks are freely available for download and implementation and provide up-to-date, step-by-step instructions for organizations to secure their infrastructure. 
 
 The CIS Benchmarks align with major security and data privacy frameworks such as: 
 * National Institute of Standards and Technology (**NIST**) Cybersecurity Framework
@@ -70,7 +70,7 @@ In an AWS Organization setup with hundreds of accounts, enforcing organization-l
 
 ## 2. PROPOSED ARCHITECTURE
 
-### 2.1. Security Hub setup in AWS Organizations
+### 2.1. Security Hub Setup in AWS Organizations
 
 ![Security Hub setup in AWS Organization setup with Delegated Administrator](./screenshots/architecture_securityhub_organization_setup.png)
 
@@ -112,10 +112,10 @@ The above architecture will be explained in detail in the [Remediation Actions](
 
 ### 4.1. Enable AWS Config
 
-> To ensure that Security Hub can access its findings, it is necessary to activate AWS Config in the desired regions across all member accounts within the organization.
+> To ensure that the Security Hub can access its findings, it is necessary to activate AWS Config in the desired regions across all member accounts within the organization.
 
-1. In the Organization’s CloudFormation StackSet Delegated Administrator, or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yml](./CloudFormation_Templates/Enable_AWS_Config.yml) template file.
-2. Choose the Parameters values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because because AWS Config need not perform redundant checks for Global resources like IAM in each region unnecessarily.
+1. In the Organization’s CloudFormation StackSet Delegated Administrator or the Management account, go to <code>CloudFormation > StackSets > Create StackSet</code> & upload the [Enable_AWS_Config.yml](./CloudFormation_Templates/Enable_AWS_Config.yml) template file.
+2. Choose the Parameter values as per your requirements. But let the <code>Include global resource types</code> as <code>FALSE</code>, because AWS Config need not perform redundant checks for Global resources like IAM in each region unnecessarily.
 
     ![Include global resource type setting](./screenshots/cloudformation_include_global_resource_parameter.png)
 3. Set the <code>Deployment options</code> as per your requirement. But for our implementation, we need the deployment targets to be the entire organization.
@@ -134,17 +134,17 @@ Now, AWS Config will be enabled in all the organization member accounts in the r
 2. Choose the Regions which you want to be aggregated, so that all region findings will be shown in the Security Hub dashboard of the primary region. Click Next.
 3. For the <code>Configuration type</code>, you can either choose to use the AWS Recommended setting to enable all standards or choose <code>Customize my Security Hub configuration</code> and choose only <code>CIS AWS Foundations Benchmark v1.4.0</code>
 
-    ![Enable Security Hub using Central Configuration option from Delegated Administrator's Security Hub Console](./screenshots/securityhub_central_enable.png)
+    ![Enable Security Hub using the Central Configuration option from Delegated Administrator's Security Hub Console](./screenshots/securityhub_central_enable.png)
 4. Choose Deploy to all accounts > Next > Submit.
 
-Now, AWS Security Hub will be enabled in the regions that you have mentioned, with controls checks for CIS 1.4.0 enabled. For more information, refer to the [AWS Documentation - Security Hub Central Configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/central-configuration-intro.html)
+Now, AWS Security Hub will be enabled in the regions that you have mentioned, with control checks for CIS 1.4.0 enabled. For more information, refer to the [AWS Documentation - Security Hub Central Configuration](https://docs.aws.amazon.com/securityhub/latest/userguide/central-configuration-intro.html)
 
 ### 4.3. Create SNS Topic
 
 > To be able to get email notification about the remediation steps taken for an automatically remediated CIS control check or get the steps to perform remediation for a control check that is triggered manually, we need to create an SNS topic in the organization member accounts in whichever region we are performing the remediation. 
 
-1. To do this, use the [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml) file and deploy using CloudFormation StackSets in all organization members in all regions that you want. Also, let the auto-deployment option be in Activated state.
-2. Now, you can have necessary email accounts to subscribe to this SNS topic to receive notification.
+1. To do this, use the [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml) file and deploy using CloudFormation StackSets in all organization members in all regions that you want. Also, let the auto-deployment option be in an Activated state.
+2. Now, you can have the necessary email accounts to subscribe to this SNS topic to receive notifications.
 
 ### 4.4. Setup Remediation Lambda Function
 
@@ -152,7 +152,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 2. Now, upload the codes [lambda_function.py](./main/lambda_function.py) and [cisPlaybook.py](./main/cisPlaybook.py) as a zip file.
 3. Go to <code>Configuration > General Configuration</code> and set the <code>Timeout</code> as <code>5 sec</code>.
 4. To allow this Remediation Lambda function to be able to assume role <code>CIS_Remediator_Role</code> in the member accounts (we will create after we set this function). We need to give it _sts:AssumeRole_ permission policy. 
-5. To do this, Create an IAM Policy with your preferred name _(say, CIS_Remediator_MemberRoleAssumption)_ with the below mentioned permission, so that the lambda function can assume the _CIS_Remediator_Role_ role in the member accounts to perform remediation.
+5. To do this, Create an IAM Policy with your preferred name _(say, CIS_Remediator_MemberRoleAssumption)_ with the below-mentioned permission, so that the lambda function can assume the _CIS_Remediator_Role_ role in the member accounts to perform remediation.
 
     ```json
     {
@@ -175,20 +175,20 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 > To allow our lambda function to be able to perform remediation action in the organization member accounts, it needs to have sufficient permissions. For this, we need an IAM role in the member accounts, which will be assumed by our lambda function.
 
 1. Using the CloudFormation template [CIS_Remediator_Role_Deployment.yml](./CloudFormation_Templates/CIS_Remediator_Role_Deployment.yml), we will create an IAM role named <code>CIS_Remediator_Role</code> with AWS-managed permission AdministratorAccess with ARN <code>arn:aws:iam::aws:policy/AdministratorAccess</code>.
-> If you wish not to give Administrator Access to the assumed member account IAM role, you need to create an IAM policy with necessary permissions that allows the lambda function to perform the necessary remediation actions for all of the CIS Controls. In this case, you can use your own CloudFormation template to create an IAM policy in all the member accounts, and change the ARN of the policy in "CIS_Remediator_Role_Deployment.yml"
+> If you wish not to give Administrator Access to the assumed member account IAM role, you need to create an IAM policy with necessary permissions that allow the lambda function to perform the necessary remediation actions for all of the CIS Controls. In this case, you can use your own CloudFormation template to create an IAM policy in all the member accounts, and change the ARN of the policy in "CIS_Remediator_Role_Deployment.yml"
 2. Since IAM is a global resource, choose only one deployment region.
-3. Also, set Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
-4. During the deployment, CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
+3. Also, set the Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
+4. During the deployment, the CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
 
     ![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/cloudformation_member_role_deployment_parameter.png)
 
 ### 4.6. Optional Requirements
 
-For the <code>CIS Control ID – 3.7</code>: CloudTrail Logs should have encryption at-rest enabled, we need a KMS key with sufficient permissions. To be able to automatic remediate this control, use CloudFormation StackSets to deploy [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./CloudFormation_Templates/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) across all member accounts in the desired regions.
+For the <code>CIS Control ID – 3.7</code>: CloudTrail Logs should have encryption at rest enabled, we need a KMS key with sufficient permissions. To be able to automatically remediate this control, use CloudFormation StackSets to deploy [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./CloudFormation_Templates/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) across all member accounts in the desired regions.
 
 > Additional Resources: If you would like to Disable or Force Enable any of the Security Hub Controls in your organization member accounts, you can implement solutions suggested in the below [AWS blog - Disabling Security Hub Controls in a Multi-Account Environment](https://aws.amazon.com/blogs/security/disabling-security-hub-controls-in-a-multi-account-environment/)
 
-Now, all the requirements to implement our solution have been setup.
+Now, all the requirements to implement our solution have been set up.
 
 ## 5. REMEDIATION ACTIONS
 
@@ -207,9 +207,9 @@ Also, information required to allow you to customize remediation actions by modi
 
 Among the controls supported by AWS for automated checks done by Security Hub, some need manual intervention for remediation (like setting up MFA, Root account setting modifications), while others can be auto-remediated. 
 
-> As many of the Security Standards recommended supported by Security Hub overlap, AWS has its own set of control ID for each matching standard recommended control ID.
+> As many of the Security Standards recommended and supported by Security Hub overlap, AWS has its own set of control IDs for each matching standard recommended control ID.
 
-Below is the summary of the remediation action done for each CIS controls:
+Below is the summary of the remediation action done for each CIS control:
 
 #### 5.2.1. Controls that require "Manual" remediation
 
@@ -226,7 +226,7 @@ Below is the summary of the remediation action done for each CIS controls:
 
 #### Setup EventBridge Rule based on Custom Action
 
-For the above controls, EventBridge Rule is set to be triggered only upon clicking <code>Custom Action</code> feature in Security Hub.
+For the above controls, the EventBridge Rule is set to be triggered only upon clicking the <code>Custom Action</code> feature in Security Hub.
 
 1. To Create a Custom Action, in the Security Hub Delegated Administrator, go to <code>Security Hub > Custom Action > Create Custom Action</code> _(say, CIS_Remediation)_
 2. Now, go to <code>EventBridge > Rules > Create Rule</code> & Choose your desired rule name _(say, CIS_Remediation_Master_CustomAction_Trigger)_ and give a description.
@@ -247,7 +247,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 ![Sample Email Notification mentioning steps to perform remediation](./screenshots/email_manual.png)
 
 
-> Note: If you prefer to use the different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
+> Note: If you prefer to use a different SNS topic for each control, you can simply add the <code>sns_topic_arn</code> variable inside the corresponding <code>“if” condition</code> in the [lambda_function.py](./main/lambda_function.py) code and mention your SNS topic’s ARN.
 
 
 #### 5.2.2. Controls that support "Automatic" remediation
@@ -273,7 +273,7 @@ For the below controls, the impact status has been given based on the performed 
 
 > Note for Customization:
 > 1. For CIS 1.17 remediation, you can change the name of the IAM role created by modifying the <code>support_role_name</code> variable in [lambda_function.py](./main/lambda_function.py)
-> 2. For CIS 1.8 & CIS 1.9 remediation, you can further customise the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
+> 2. For CIS 1.8 & CIS 1.9 remediation, you can further customize the password policy based on your requirement by modifying the <code>password_policy</code> variable in [cisPlaybook.py](./main/cisPlaybook.py)
 
 
 ##### B) Storage Controls 
@@ -329,9 +329,9 @@ For the below controls, the impact status has been given based on the performed 
 |   4.14  |   <code>CloudWatch.14</code>  |   Ensure a log metric filter and alarm exist for VPC changes  |   <code>cis-aws-foundations-benchmark/v/1.4.0/4.14</code>  |   Creates a Log metric & Alarm to monitor VPC changes using the filter <code> { ($.eventName = CreateVpc) &#124;&#124; ($.eventName = DeleteVpc) &#124;&#124; ($.eventName = ModifyVpcAttribute) &#124;&#124; ($.eventName = AcceptVpcPeeringConnection) &#124;&#124; ($.eventName = CreateVpcPeeringConnection) &#124;&#124; ($.eventName = DeleteVpcPeeringConnection) &#124;&#124; ($.eventName = RejectVpcPeeringConnection) &#124;&#124; ($.eventName = AttachClassicLinkVpc) &#124;&#124; ($.eventName = DetachClassicLinkVpc) &#124;&#124; ($.eventName = DisableVpcClassicLink) &#124;&#124; ($.eventName = EnableVpcClassicLink) } </code>   |  ✅  |
 
 > Note for Customization: 
-> For the all the above Monitoring control remediations, you can modify the following input variables under each control’s <code>if condition</code> in the [lambda_function.py](./main/lambda_function.py)
+> For all the above Monitoring control remediations, you can modify the following input variables under each control’s <code>if condition</code> in the [lambda_function.py](./main/lambda_function.py)
 >> 1. <code>log_group_name</code> – Name of the log group that needs to be monitored.
->> 2. <code>alarm_sns_topic</code> – SNS topic ARN that needs to be notified when Alarm threshold limit is reached.
+>> 2. <code>alarm_sns_topic</code> – SNS topic ARN that needs to be notified when the Alarm threshold limit is reached.
 >> 3. <code>threshold_value</code> – Choose your desired threshold limit `(default = 1)`.
 
 ##### D) Networking Controls 
@@ -342,11 +342,11 @@ For the below controls, the impact status has been given based on the performed 
 |   5.3  |   <code>EC2.2</code>  |   VPC default security groups should not allow inbound or outbound traffic  |   <code>cis-aws-foundations-benchmark/v/1.4.0/5.3</code>  |   Removes all inbound & outbound rules from the Default security group of a VPC  |  ⚠️  |
 
 > Note: 
-> 1. For CIS 5.1 remediation, I am working on modifying the code, so that the auto-remediation is done not by removing the non-compliant resource, but by replacing the source IP as a private IP range. This will ensure that, only users connected to the Organization network directly or via VPN can access services via remote administration ports.
+> 1. For CIS 5.1 remediation, I am working on modifying the code, so that the auto-remediation is done not by removing the non-compliant resource but by replacing the source IP as a private IP range. This will ensure that only users connected to the Organization network directly or via VPN can access services via remote administration ports.
 
 #### Setup EventBridge Rule for Automatic Remediation
 
-> For the above controls, EventBridge Rule is set to be triggered automatically using a EventBridge rule will needs to be created. Follow the first three steps as indicated, while creating the previous Custom-Action based EventBridge rule. 
+> For the above controls, the EventBridge Rule is set to be triggered automatically using an EventBridge rule that needs to be created. Follow the first three steps as indicated, while creating the previous Custom-Action-based EventBridge rule. 
 Here, only the Event Pattern will change as given below:
 
 1. Choose the <code>Event type</code> as <code>Security Hub Findings – Imported</code> & Compliance Status as <code>FAILED</code>.
@@ -359,13 +359,13 @@ Here, only the Event Pattern will change as given below:
 If you want to disable this Automatic Remediation, you can click on the EventBridge Rule you had created, and choose <code>Disable</code>
 
 > Note: 
-> For all the controls supporting auto-remediation, once a remediation is done, the lambda function will send an email notification to the SNS topic (created earlier using CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml)) with information about the actions taken. 
+> For all the controls supporting auto-remediation, once remediation is done, the lambda function will send an email notification to the SNS topic (created earlier using CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml)) with information about the actions taken. 
 
 _Sample Email Notification mentioning remediation actions taken_
 
 ![Sample Email Notification mentioning remediation actions taken](./screenshots/email_auto.png)
 
-> Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for a remediation that has already happened.
+> Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise, it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for remediation that has already happened.
 
 ## 6. TEST RESULTS
 
@@ -381,7 +381,7 @@ _Sample Email Notification mentioning remediation actions taken_
 - This <code>FAILED</code> & <code>NEW</code> status will automatically trigger the Remediation Lambda function to perform the remediation action in the respective member account, in the region where the non-compliant resource exists. See the below CloudWatch log of the Remediation Lambda for reference.
 
     ![CloudWatch logs indicating remediation lambda execution](./screenshots/test_cloudwatchlogs.png)
-- The below email notification has been sent to the emails subscribed to the SNS topic created created with CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml).
+The below email notification has been sent to the emails subscribed to the SNS topic created with the CloudFormation template [CIS_Remediation_Notification_Setup.yml](./CloudFormation_Templates/CIS_Remediation_Notification_Setup.yml).
   
     ![Email notification showing remediation action taken](./screenshots/test_email.png)
 - Once auto-remediation is performed, you can confirm that the non-compliant rules have been removed from the NACL.
@@ -395,8 +395,8 @@ _Sample Email Notification mentioning remediation actions taken_
 
 #### Future Work Prospectives
 
-Some of the future prospectives of this project includes,
-- Find a way to perform Security Checks for the controls checks that are not supported by AWS Security Hub (e.g. CIS 1.1, 1.2, etc.)
+Some of the future prospectives of this project include,
+- Find a way to perform Security Checks for controls checks that are not supported by AWS Security Hub (e.g., CIS 1.1, 1.2, etc.).
 - Design a more adaptable solution, which will also perform remediation for other industry security standards like NIST, PCI DSS, HIPAA, SOC2, etc.
 - "Fully" automate the deployment of our solution using CloudFormation templates.
 - Add more remediation conditions for control remediations that "may" cause a production impact
@@ -407,7 +407,7 @@ All the remediation codes provided in this repository have been tested under a T
 
 #### Acknowledgements
 
-I would like to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
+I want to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
 
 - Other Contributors:
    - v1.4.0 - [Danush Adhitya](https://github.com/danushadhitya) 
@@ -418,4 +418,4 @@ I would like to express my gratitude to the following individuals for their cont
 
 ### Contact
 
-For any issues or concerns in the code or implementation procedure, please [email me](mailto:prasanna7401@gmail.com) 
+For any issues or concerns in the code or implementation procedure, please post them in Issues or Discussions.
