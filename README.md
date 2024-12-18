@@ -416,6 +416,6 @@ I want to express my gratitude to the following individuals for their contributi
 - Mentor:
   - [Mohammad Reza Bagheri](https://github.com/BagheriReza)
 
-### Contact
+### Issues and discussions
 
-For any issues or concerns in the code or implementation procedure, please post them in Issues or Discussions.
+For any issues or concerns in the code or implementation procedure, please post them in `Issues` or `Discussions` tab of this repository.
