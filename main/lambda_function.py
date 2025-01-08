@@ -169,7 +169,7 @@ def lambda_handler(event, context):
     # CIS 3.1 (CloudTrail should be enabled and configured with at least one multi-Region trail that includes read and write management events) -- AUTO-Remediation upon invoke
     if(security_control_id=="CloudTrail.1"):
         current_date = datetime.datetime.now().strftime("%Y%m%d")
-        bucket_name = "cis_cloudtrail_bucket_"+current_date # Arbitrary & unique S3 bucket name
+        bucket_name = "cis-cloudtrail-bucket-"+current_date # Arbitrary & unique S3 bucket name
         trail_name = "CIS_MultiRegion_CloudTrail"
         cis_3_1_10_11(event, target_session, region, target_account_id, sns_topic_arn, bucket_name, trail_name)
     
