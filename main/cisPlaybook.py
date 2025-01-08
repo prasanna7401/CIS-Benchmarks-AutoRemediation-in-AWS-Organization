@@ -858,6 +858,41 @@ def cis_3_1_10_11(event, target_session, region, target_account_id, sns_topic_ar
         
         # Create a new S3 bucket
         s3_client.create_bucket(Bucket=bucket_name)
+
+        print(f"S3 bucket {bucket_name} created successfully!")
+
+        # Add a bucket policy to allow CloudTrail to write logs
+        bucket_policy = {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Sid": "AllowCloudTrailWrite",
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "cloudtrail.amazonaws.com"
+                    },
+                    "Action": "s3:PutObject",
+                    "Resource": f"arn:aws:s3:::{bucket_name}/AWSLogs/{target_account_id}/*",
+                    "Condition": {
+                        "StringEquals": {
+                            "s3:x-amz-acl": "bucket-owner-full-control"
+                        }
+                    }
+                },
+                {
+                    "Sid": "AllowCloudTrailGet",
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "cloudtrail.amazonaws.com"
+                    },
+                    "Action": "s3:GetBucketAcl",
+                    "Resource": f"arn:aws:s3:::{bucket_name}"
+                }
+            ]
+        }
+        # Apply the bucket policy
+        s3_client.put_bucket_policy(Bucket=bucket_name, Policy=json.dumps(bucket_policy))
+        print(f"Bucket policy added to {bucket_name}")
         
         # Create a new trail with desired configuration
         response = cloudtrail_client.create_trail(
