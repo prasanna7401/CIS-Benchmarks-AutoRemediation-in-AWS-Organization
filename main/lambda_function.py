@@ -175,10 +175,11 @@ def lambda_handler(event, context):
     
     # CIS 3.2 (CloudTrail log file validation should be enabled) -- AUTO-Remediation upon invoke
     if(security_control_id=="CloudTrail.4"):
-        trail_name = event['detail']['findings'][0]['Resources'][0]['Details']['AwsCloudTrailTrail']['Name']
+        # trail_name = event['detail']['findings'][0]['Resources'][0]['Details']['AwsCloudTrailTrail']['Name']
+        trail_arn = event['detail']['findings'][0]['Resources'][0]['Id']
         log_validation_status = event['detail']['findings'][0]['Resources'][0]['Details']['AwsCloudTrailTrail']['LogFileValidationEnabled']
         if not log_validation_status:
-            cis_3_2(event, target_session, region, target_account_id, sns_topic_arn, trail_name)
+            cis_3_2(event, target_session, region, target_account_id, sns_topic_arn, trail_arn)
     
     # CIS 3.3 (Ensure the S3 bucket used to store CloudTrail logs is not publicly accessible) -- AUTO-Remediation upon invoke
     if(security_control_id=="CloudTrail.6"):
