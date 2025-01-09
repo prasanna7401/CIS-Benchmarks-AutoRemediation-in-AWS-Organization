@@ -1609,7 +1609,7 @@ def cis_4_7(event, target_session, region, target_account_id, sns_topic_arn, log
     print(f"Task to be implemented on {target_account_id} in {region}")
 
     # --- REMEDIATION CODE ---
-    filter_pattern = '{ $.eventSource = kms* && $.errorMessage = "* is pending deletion."}'
+    filter_pattern = '{($.eventSource=kms.amazonaws.com) && (($.eventName=DisableKey) || ($.eventName=ScheduleKeyDeletion))}'
 
     # Important Variables
     filter_name = 'CMKDisablingDeletionFilter'
