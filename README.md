@@ -29,14 +29,17 @@ This implementation performs near real-time "Automatic" remediation of NON-COMPL
 </details>
 
 ## 1. INTRODUCTION
+
+<details>
+ <summary> `Click here for detailed description` </summary>
 ### 1.1. Introduction
-In the ever-evolving landscape of cloud computing, ensuring the security and compliance of cloud infrastructure has become paramount for organizations of all sizes. To address this critical need, the Center for Internet Security (CIS) has developed a set of comprehensive security benchmarks that provide organizations with a structured approach to securing their computer systems. 
+In the ever-evolving landscape of cloud computing, ensuring cloud infrastructure security and compliance has become paramount for organizations of all sizes. To address this critical need, the Center for Internet Security (CIS) has developed a set of comprehensive security benchmarks that provide organizations with a structured approach to securing their computer systems. 
 
 By deploying the proposed automatic remediation solution for CIS security benchmarks in the AWS cloud, organizations can proactively fortify their infrastructure against potential threats and ensure adherence to industry-standard security configurations. This comprehensive approach will empower organizations to safeguard their sensitive data, maintain regulatory compliance, and foster a secure environment for their cloud operations.
 
 ### 1.2. What are CIS & CIS Benchmarks?
 
-The Center for Internet Security (CIS) is a non-profit organization that develops and promotes best practices for securing IT systems and data, including cloud security. The CIS Benchmarks are a set of globally recognized and consensus-driven guidelines that help organizations protect against emerging cybersecurity risks. These benchmarks are developed with input from a global community of security experts and provide practical guidance for implementing and managing cybersecurity defenses.
+The Center for Internet Security (CIS) is a non-profit organization that develops and promotes best practices for securing IT systems and data, including cloud security. The CIS Benchmarks are globally recognized and consensus-driven guidelines that help organizations protect against emerging cybersecurity risks. These benchmarks, developed with input from a global community of security experts, provide practical guidance for implementing and managing cybersecurity defenses.
 
 ### 1.3.	What are CIS AWS Foundations Benchmarks?
 
@@ -62,9 +65,11 @@ Below are the four sections:
 - Monitoring – 15 Controls
 - Networking – 4 Controls
 
+</details>
+
 ### 1.6.	Problem Statement
 
-In an AWS Organization setup with hundreds of accounts, enforcing organization-level security regulations for each resource deployed in various regions is a tedious task. An organization's security team will need to put a lot of effort into taking necessary actions to increase the Compliancy score.
+In an AWS Organization setup with hundreds of accounts, enforcing organization-level security regulations for each resource deployed in various regions is a tedious task. An organization's security team will need to put a lot of effort into taking necessary actions to increase the compliance score.
 
 <!-- Document authored by Prasanna Venkatesan Aravindan (prasanna7401@gmail.com) on 12th December 2023 -->
 
@@ -108,7 +113,7 @@ The above architecture will be explained in detail in the [Remediation Actions](
 ## 4. ENVIRONMENT SETUP
 
 > Pre-requisite: An AWS Organization setup with multiple member accounts, and a management account. Also, Organization-level services like AWS Config, Security Hub, CloudFormation StackSet, CloudTrail, etc. must be enabled as per your requirement, and setup Delegated Administrator accounts for managing these services if needed.
->> NOTE: Due to the AWS Organizations setup, whatever control measure implemented at the Organizations level will NOT be enforced on the Management Account (SCPs are applicable to Management account).
+>> NOTE: Due to the AWS Organizations setup, whatever control measure is implemented at the organization level will NOT be enforced on the Management Account (SCPs are applicable to the Management account).
 
 ### 4.1. Enable AWS Config
 
@@ -178,7 +183,7 @@ Now, AWS Security Hub will be enabled in the regions that you have mentioned, wi
 > If you wish not to give Administrator Access to the assumed member account IAM role, you need to create an IAM policy with necessary permissions that allow the lambda function to perform the necessary remediation actions for all of the CIS Controls. In this case, you can use your own CloudFormation template to create an IAM policy in all the member accounts, and change the ARN of the policy in "CIS_Remediator_Role_Deployment.yml"
 2. Since IAM is a global resource, choose only one deployment region.
 3. Also, set the Auto-deployment option as Activated, so that this IAM role will be created in new member accounts also.
-4. During the deployment, the CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, in order to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
+4. During the deployment, the CloudFormation console will prompt you to provide the <code>ARN of the Remediation lambda function’s IAM role</code>, to create a trust relationship policy in the Member account IAM role, so that our lambda function can assume it successfully.
 
     ![Member Role deployment parameter requesting Remediation Lambda function's IAM Role ARN](./screenshots/cloudformation_member_role_deployment_parameter.png)
 
@@ -241,7 +246,7 @@ For the above controls, the EventBridge Rule is set to be triggered only upon cl
 
 
 #### How to Trigger this?
-Choose a FAILED compliancy control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
+Choose a FAILED compliance control check, Click on <code>Action > Name of the Custom Action</code> you had created. This will trigger the Remediation lambda function to send out an email notification with instructions to perform the necessary remediation action, to the emails subscribed to the SNS topic.
 
 _Sample Email Notification mentioning steps to perform remediation_
 ![Sample Email Notification mentioning steps to perform remediation](./screenshots/email_manual.png)
@@ -252,7 +257,7 @@ _Sample Email Notification mentioning steps to perform remediation_
 
 #### 5.2.2. Controls that support "Automatic" remediation
 
-For the below controls, the impact status has been given based on the performed automatic-remediation
+For the below controls, the impact status has been given based on the performed automatic remediation
 | Symbol | Description |
 |----------|----------|
 |  ❗  |  Impactful  |
@@ -293,11 +298,11 @@ For the below controls, the impact status has been given based on the performed 
 
 | CIS Control ID | AWS Control ID | Control Description | Generator ID | Action Taken | Impact |
 |----------|----------|----------|----------|----------|----------|
-|   3.1  |   <code>CloudTrail.1</code>  |   Ensure that CloudTrail is enabled in all regions & set to log read/write events in CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.1</code>  |   Enabled CloudTrail in compliancy failed region with CloudTrail S3 bucket logging set to monitor read/write events  |  ✅  |
-|   3.2  |   <code>CloudTrail.4</code>  |   CloudTrail log file validation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.2</code>  |   Enabled <code>Log Validation</code> in compliancy failed trail  |  ✅  |
+|   3.1  |   <code>CloudTrail.1</code>  |   Ensure that CloudTrail is enabled in all regions & set to log read/write events in CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.1</code>  |   Enabled CloudTrail in compliance failed region with CloudTrail S3 bucket logging set to monitor read/write events  |  ✅  |
+|   3.2  |   <code>CloudTrail.4</code>  |   CloudTrail log file validation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.2</code>  |   Enabled <code>Log Validation</code> in compliance failed trail  |  ✅  |
 |   3.3  |   <code>CloudTrail.6</code>  |   Ensure the S3 bucket used to store CloudTrail logs is not publicly accessible  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.3</code>  |   Enables <code>Block all public access</code> setting at CloudTrail Bucket  |  ✅  |
 |   3.4  |   <code>CloudTrail.5</code> |   CloudTrail trails should be integrated with Amazon CloudWatch Logs  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.4</code>  |   Creates CloudWatch log & IAM role (if not exists) with CloudWatch log writing permissions & integrates CloudTrail with CloudWatch Log group |  ✅  |
-|   3.5  |   <code>Config.1</code> |   AWS Config must be enabled in all regions to monitor all resources  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.5</code>  |  No remediation code has been provided for this Control ID. Because, while enabling AWS config at organization level, we have setup <code>Include Global Resources</code> as <code>FALSE</code> to avoid redundant checks for global resources like IAM. Since AWS Config checks is not allowed for all resources, this control check will be in FAILED state. You can choose to disable this control check if you wish.  |  -  |
+|   3.5  |   <code>Config.1</code> |   AWS Config must be enabled in all regions to monitor all resources  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.5</code>  |  No remediation code has been provided for this Control ID. Because, while enabling AWS config at the organization level, we have set up <code>Include Global Resources</code> as <code>FALSE</code> to avoid redundant checks for global resources like IAM. Since AWS Config checks is not allowed for all resources, this control check will be in a FAILED state. You can choose to disable this control check if you wish.  |  -  |
 |   3.6  |   <code>CloudTrail.7</code> |   Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.6</code>  |   Enables <code>Server Access Logging</code> in CloudTrail S3 bucket’s properties  |  ✅  |
 |   3.7  |   <code>CloudTrail.2</code> |   CloudTrail Logs should have encryption at-rest enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.7</code>  |   Enabled <code>Log file SSE-KMS encryption</code> using the KMS key created using CloudFormation template [CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml](./CloudFormation_Templates/CIS_CloudTrail_Encryption_KMS_Key_Deployment.yml) earlier.  |  ✅  |
 |   3.8  |   <code>KMS.4</code> |   AWS KMS key rotation should be enabled  |   <code>cis-aws-foundations-benchmark/v/1.4.0/3.8</code>  |   Enables <code>Automatically rotate this KMS key every year</code> option  |  ⚠️  |
@@ -308,7 +313,7 @@ For the below controls, the impact status has been given based on the performed 
 > Note for Customization: 
 > 1. For CIS 3.4 remediation, you can change the name of the IAM role created by modifying the <code>iam_rolename</code>.
 > 2. For CIS 3.7 remediation, If you already have a KMS key with necessary permissions, you can add <code>key_alias</code>.
-> 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with description containing these keywords will not be rotated.
+> 3. For CIS 3.8 remediation, you can give a list of keywords in <code>exclusion_keywords</code> variable, so that KMS keys with descriptions containing these keywords will not be rotated.
 > > All the above variable changes need to be done in [lambda_function.py](./main/lambda_function.py)
 
 ##### D) Monitoring Controls 
@@ -365,7 +370,7 @@ _Sample Email Notification mentioning remediation actions taken_
 
 ![Sample Email Notification mentioning remediation actions taken](./screenshots/email_auto.png)
 
-> Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise, it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for remediation that has already happened.
+> Also, once a control that is in <code>FAILED</code> state has triggered the remediation action, its workflow state will change from <code>NEW</code> into <code>NOTIFIED</code> until otherwise, it changes to <code>RESOLVED</code> state, to avoid accidental manual triggers for remediation that have already happened.
 
 ## 6. TEST RESULTS
 
@@ -403,7 +408,7 @@ Some of the future prospectives of this project include,
 
 #### Disclaimer
 
-All the remediation codes provided in this repository have been tested under a Test AWS Organization Environment setup. Before you try to implement this in your environment, make sure you go through the entire documentation, and the code.
+All the remediation codes provided in this repository have been tested under a Test AWS Organization Environment setup. Before you try to implement this in your environment, make sure you go through the entire documentation and the code.
 
 #### Acknowledgements
 
@@ -418,4 +423,4 @@ I want to express my gratitude to the following individuals for their contributi
 
 ### Issues and discussions
 
-For any issues or concerns in the code or implementation procedure, please post them in `Issues` or `Discussions` tab of this repository.
+For any issues or concerns in the code or implementation procedure, please post them in the `Issues` or `Discussions` tab of this repository.
