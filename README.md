@@ -31,8 +31,9 @@ This implementation performs near real-time "Automatic" remediation of NON-COMPL
 ## 1. INTRODUCTION
 
 <details>
- <summary> `Click here for detailed description` </summary>
-### 1.1. Introduction
+ <summary> Click here for detailed description </summary>
+
+ ### 1.1. Introduction
 In the ever-evolving landscape of cloud computing, ensuring cloud infrastructure security and compliance has become paramount for organizations of all sizes. To address this critical need, the Center for Internet Security (CIS) has developed a set of comprehensive security benchmarks that provide organizations with a structured approach to securing their computer systems. 
 
 By deploying the proposed automatic remediation solution for CIS security benchmarks in the AWS cloud, organizations can proactively fortify their infrastructure against potential threats and ensure adherence to industry-standard security configurations. This comprehensive approach will empower organizations to safeguard their sensitive data, maintain regulatory compliance, and foster a secure environment for their cloud operations.
