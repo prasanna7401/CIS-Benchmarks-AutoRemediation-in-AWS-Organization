@@ -402,21 +402,20 @@ The below email notification has been sent to the emails subscribed to the SNS t
 #### Future Work Prospectives
 
 Some of the future prospectives of this project include,
-- Find a way to perform Security Checks for controls checks that are not supported by AWS Security Hub (e.g., CIS 1.1, 1.2, etc.).
+- Find a way to perform security checks for controls not supported by AWS Security Hub (e.g., CIS 1.1, 1.2, etc.).
 - Design a more adaptable solution, which will also perform remediation for other industry security standards like NIST, PCI DSS, HIPAA, SOC2, etc.
 - "Fully" automate the deployment of our solution using CloudFormation templates.
 - Add more remediation conditions for control remediations that "may" cause a production impact
 
 #### Disclaimer
 
-All the remediation codes provided in this repository have been tested under a Test AWS Organization Environment setup. Before you try to implement this in your environment, make sure you go through the entire documentation and the code.
+All the remediation codes provided in this repository have been tested under a Test AWS Organization Environment setup. Before you try to implement this in your environment, review the entire documentation and the code.
 
 #### Acknowledgements
 
 I want to express my gratitude to the following individuals for their contributions, support, and inspiration in the development of this project:
 
 - Other Contributors:
-   - v1.4.0 - [Danush Adhitya](https://github.com/danushadhitya) 
    - v3.0.0 - [Yang Han](https://github.com/WarrenHan1130), [Yarui Qiu](https://github.com/LottieQ)
    
 - Mentor:
